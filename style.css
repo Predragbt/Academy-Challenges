@@ -40,7 +40,7 @@ header {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
     url(./images/image-01.jpg);
   background-size: 100% 100%;
-  background-attachment: scroll;
+  background-attachment: fixed;
   background-repeat: no-repeat;
 }
 
@@ -51,6 +51,10 @@ header {
   color: white;
   align-items: center;
   padding: 0 3rem;
+}
+
+.menu i {
+  display: none;
 }
 
 .menu ul {
@@ -69,7 +73,7 @@ header {
   opacity: 1;
 }
 
-.content {
+header .content {
   height: 90%;
   width: 25%;
   margin: 0 auto;
@@ -102,4 +106,81 @@ header {
   border-radius: 10px;
   font-size: 20px;
   cursor: pointer;
+}
+
+.about {
+  padding: 5rem 0;
+}
+
+.about-inner {
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.about-inner-text {
+  text-align: center;
+  width: 60%;
+}
+
+.about-inner-text h2 {
+  margin-bottom: 2rem;
+}
+
+.about-inner-image {
+  width: 300px;
+}
+
+.about-inner img {
+  height: 300px;
+  border-radius: 50%;
+}
+
+@media (max-width: 767px) {
+  h2 {
+    font-size: 24px;
+  }
+
+  .content h1 {
+    font-size: 26px;
+  }
+
+  header .content {
+    width: 80%;
+  }
+
+  .content button {
+    width: 100%;
+  }
+
+  .menu {
+    padding: 0 2rem;
+  }
+
+  .menu ul {
+    display: none;
+  }
+
+  .menu i {
+    display: block;
+  }
+
+  .about-inner {
+    flex-direction: column;
+    width: 80%;
+  }
+
+  .about-inner-text {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .about-inner-image,
+  .about-inner img {
+    width: 150px;
+    height: 150px;
+  }
 }
