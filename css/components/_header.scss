@@ -1,0 +1,101 @@
+@use "../abstracts/variables" as var;
+@use "../abstracts/mixins" as mix;
+@use "sass:math";
+
+header {
+  height: 100vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+    url(../images/image-01.jpg);
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+
+  .menu {
+    display: flex;
+    justify-content: space-between;
+    height: 10%;
+    color: var.$background-color-base;
+    align-items: center;
+    padding: 0 3rem;
+
+    i {
+      display: none;
+
+      @include mix.mobile-styles {
+        display: block;
+      }
+    }
+
+    ul {
+      display: flex;
+
+      @include mix.mobile-styles {
+        display: none;
+      }
+
+      li {
+        a {
+          font-size: var.$font-size-bigger;
+          opacity: 0.5;
+          margin-left: 2rem;
+          color: var.$background-color-base;
+          letter-spacing: 3px;
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+
+  .content {
+    height: 90%;
+    width: 25%;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var.$background-color-base;
+
+    @include mix.mobile-styles {
+      width: 80%;
+    }
+
+    h1 {
+      font-size: var.$heading-size-small;
+      border-top: 2px solid var.$background-color-base;
+      border-bottom: 2px solid var.$background-color-base;
+      padding: 1rem;
+      margin-bottom: 2.5rem;
+
+      @include mix.mobile-styles {
+        font-size: var.$heading-size-tiny;
+      }
+    }
+
+    p {
+      line-height: 1.5;
+      margin-bottom: 2rem;
+    }
+
+    button {
+      background-color: transparent;
+      color: var.$background-color-base;
+      padding: 1rem 2.5rem;
+      border: 1px solid var.$background-color-base;
+      border-radius: math.div(var.$gutter-base, 3);
+      font-size: var.$font-size-big;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      @include mix.mobile-styles {
+        width: 100%;
+      }
+    }
+  }
+}
