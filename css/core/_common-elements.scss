@@ -1,24 +1,35 @@
+@use "../abstracts/variables" as var;
+@use "../abstracts/mixins" as mix;
+@use "sass:math";
+
 html {
-    font-size: 16px;
+  font-size: 16px;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-weight: normal;
+  line-height: 1.5;
+}
+
+// h1 {}
+
+h2 {
+  font-size: var.$heading-size-small;
+
+  @include mix.mobile-styles {
+    font-size: var.$font-size-bigger;
   }
-  
-  body {
-    font-family: "Roboto", sans-serif;
-    font-weight: normal;
-    line-height: 1.5;
+}
+
+// h3 {}
+
+p {
+  font-size: var.$font-size-medium;
+
+  @include mix.mobile-styles {
+    font-size: var.$font-size-base;
   }
-  
-  // h1 {}
-  
-  h2 {
-    font-size: 28px;
-  }
-  
-  // h3 {}
-  
-  p {
-    font-size: 20px;
-  }
-  
-  // .btn {}
-  
+}
+
+// .btn {}

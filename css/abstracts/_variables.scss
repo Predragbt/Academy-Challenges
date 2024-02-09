@@ -15,7 +15,7 @@ $font-size-bigger: rem-calc(22);
 
 $heading-size-tiny: rem-calc(26);
 $heading-size-small: rem-calc(32);
-$heading-size-big: rem-calc(45);
+$heading-size-big: rem-calc(36);
 $heading-size-bigger: rem-calc(100);
 $heading-size-enormous: rem-calc(140);
 
@@ -31,11 +31,11 @@ $gutter-base: rem-calc(30);
 
 // Color settings
 $text-color-base: #111;
-$text-color-primary: transparentize(#f1c50e, 0.5);
-$text-color-secondary: #fff;
+$text-color-primary: #fff;
+$text-color-secondary: transparentize(#fff, 0.5);
 
 $background-color-base: #fff;
-$background-color-primary: #f1c50e;
+$background-color-primary: rgb(41, 39, 39);
 $background-color-secondary: transparentize($text-color-base, 0.5);
 
 $hover-color: darken(#f1c50e, 10%);
