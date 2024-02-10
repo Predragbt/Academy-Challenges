@@ -36,6 +36,8 @@ $text-color-secondary: transparentize(#fff, 0.5);
 
 $background-color-base: #fff;
 $background-color-primary: rgb(41, 39, 39);
-$background-color-secondary: transparentize($text-color-base, 0.5);
+$background-color-secondary: transparentize($text-color-base, 0.8);
+$background-color-tertiary: rgb(68, 68, 243);
+$background-color-tertiary-hover: rgb(7, 7, 219);
 
 $hover-color: darken(#f1c50e, 10%);

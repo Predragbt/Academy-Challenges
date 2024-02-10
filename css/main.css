@@ -28,24 +28,24 @@ img {
   max-width: 100%;
 }
 
-.services, .about {
+.contact, .services, .about {
   padding-top: 3.75rem;
   padding-bottom: 3.75rem;
 }
 @media (max-width: 425px) {
-  .services, .about {
+  .contact, .services, .about {
     padding-top: 1.875rem;
     padding-bottom: 1.875rem;
   }
 }
 
-.services .services-inner, .about .about-inner {
+footer .footer-content, .contact .contact-inner, .services .services-inner, .about .about-inner {
   max-width: 70%;
   margin-left: auto;
   margin-right: auto;
 }
 @media (max-width: 425px) {
-  .services .services-inner, .about .about-inner {
+  footer .footer-content, .contact .contact-inner, .services .services-inner, .about .about-inner {
     max-width: 80%;
   }
 }
@@ -81,9 +81,10 @@ p {
 header {
   height: 100vh;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url(../images/image-01.jpg);
-  background-size: 100% 100%;
+  background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
+  background-position: center;
 }
 @media (max-width: 425px) {
   header {
@@ -253,4 +254,58 @@ header .content button:hover {
     flex-basis: 100%;
     padding: 0 1.25rem;
   }
+}
+
+.contact .contact-inner {
+  text-align: center;
+}
+.contact .contact-inner h2 {
+  margin-bottom: 0.9375rem;
+}
+.contact .contact-inner form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.contact .contact-inner form input {
+  padding: 10px;
+  margin-bottom: 1.875rem;
+  border-radius: 5px;
+  border-color: rgba(17, 17, 17, 0.2);
+  border-style: solid;
+  width: 30%;
+}
+@media (max-width: 425px) {
+  .contact .contact-inner form input {
+    width: 100%;
+  }
+}
+.contact .contact-inner form button {
+  padding: 10px 25px;
+  background-color: rgb(68, 68, 243);
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+}
+.contact .contact-inner form button:hover {
+  background-color: rgb(7, 7, 219);
+  cursor: pointer;
+}
+
+footer {
+  padding: 0.9375rem;
+  text-align: center;
+  background-color: rgb(41, 39, 39);
+}
+footer .footer-content {
+  color: #fff;
+}
+footer .footer-content p {
+  margin-bottom: 0.625rem;
+}
+footer .footer-content a {
+  color: white;
+}
+footer .footer-content a:not(:last-child) {
+  margin-right: 0.9375rem;
 }/*# sourceMappingURL=main.css.map */
