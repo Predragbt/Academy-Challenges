@@ -1,0 +1,360 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body,
+  h1,
+  ul,
+  li,
+  a {
+    list-style: none;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-top: 0;
+  }
+  
+  h2 {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  p {
+    font-size: 21px;
+  }
+  
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .header-menu {
+    height: 5rem;
+    display: flex;
+    width: 100%;
+    background-color: #333;
+    justify-content: space-around;
+  }
+  
+  .header-menu-icon {
+    display: none;
+  }
+  
+  .header-menu-content {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header-menu-content-title p,
+  .header-menu-content-list a {
+    color: white;
+  }
+  
+  .header-menu-content-list ul {
+    display: flex;
+    gap: 2rem;
+    font-size: 21px;
+  }
+  
+  .landing-section {
+    background-image: url(./images/image-01.jpg);
+    background-size: cover;
+    width: 100%;
+    background-position: top;
+    height: 55vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    margin-bottom: 70px;
+  }
+  
+  .landing-section h1 {
+    font-size: 3.1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .about-us {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto 70px auto;
+    gap: 5rem;
+  }
+  
+  .about-us-image,
+  .about-us-text {
+    flex: 1;
+  }
+  
+  .about-us-text h2 {
+    text-align: left;
+    margin-bottom: 3rem;
+  }
+  
+  .about-us-text p {
+    line-height: 1.5;
+  }
+  
+  .about-us img {
+    max-width: 100%;
+    box-shadow: 8px 8px 10px gray;
+    border-radius: 5px;
+  }
+  
+  .services {
+    background-color: #632323;
+    color: white;
+    padding: 70px 0px;
+  }
+  
+  .services-cards {
+    display: flex;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 2rem;
+  }
+  
+  .services-cards article {
+    border: 1px solid white;
+    padding: 2.5rem;
+    border-radius: 10px;
+  }
+  
+  .services-cards article h3 {
+    margin-bottom: 1.5rem;
+    font-size: 23px;
+  }
+  
+  .services-cards article p {
+    margin-bottom: 2.5rem;
+    opacity: 0.5;
+  }
+  
+  .services-cards button {
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+    border-radius: 5px;
+    padding: 25px 30px;
+    font-size: 15px;
+  }
+  
+  .services-cards button:hover {
+    background-color: white;
+    color: #632323;
+    cursor: pointer;
+  }
+  
+  .services-cards button:not(:hover) {
+    transition: 0.5s;
+  }
+  
+  .instructors {
+    background-color: #f4f4f4;
+    padding: 70px 0;
+  }
+  
+  .instructors-cards {
+    display: flex;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 2rem;
+  }
+  
+  .instructors-cards article {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: -1px 1px 10px lightgrey;
+    overflow: hidden;
+  }
+  
+  .instructors-cards-description {
+    padding: 21px;
+  }
+  
+  .instructors-cards-description h3 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .instructors-cards-description p {
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.5;
+  }
+  
+  .pricing {
+    padding: 70px 0;
+  }
+  
+  .pricing-cards {
+    display: flex;
+    align-items: center;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 2rem;
+  }
+  
+  .pricing-cards article {
+    width: 100%;
+    text-align: center;
+    border: 1px solid rgb(228, 225, 225);
+    border-radius: 10px;
+    padding: 1.5rem 1rem;
+    box-shadow: 4px 4px 4px #f4f4f4;
+  }
+  
+  .pricing-cards h3,
+  .pricing-cards h4 {
+    margin-bottom: 1.5rem;
+  }
+  
+  .pricing-cards h3 {
+    font-size: 25px;
+  }
+  
+  .pricing-cards h4 {
+    font-size: 30px;
+    color: #ff4500;
+  }
+  
+  .pricing-cards hr {
+    height: 1px;
+    background-color: rgb(228, 225, 225);
+    border: none;
+  }
+  
+  .pricing-cards p {
+    margin: 10px 0;
+  }
+  
+  .pricing-cards article:hover {
+    transform: translateY(-10px);
+    cursor: pointer;
+  }
+  
+  .contact {
+    background-color: #f4f4f4;
+    padding: 30px 0;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .contact input,
+  textarea {
+    font-size: 21px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid rgb(228, 225, 225);
+    border-radius: 5px;
+    resize: vertical;
+  }
+  
+  .contact button {
+    font-size: 21px;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #5cb85c;
+    color: white;
+  }
+  
+  .contact button:hover {
+    background-color: #57a757;
+  }
+  
+  footer {
+    padding: 20px 0;
+    text-align: center;
+    background-color: black;
+    color: white;
+  }
+  
+  @media screen and (max-width: 767px) {
+    p {
+      font-size: 15px;
+    }
+  
+    .instructors-cards-description p {
+      font-size: 13px;
+    }
+  
+    .landing-section h1 {
+      width: 80%;
+      font-size: 2.5rem;
+    }
+  
+    .header-menu-icon {
+      display: block;
+      fill: white;
+    }
+  
+    .about-us {
+      flex-direction: column;
+      gap: 2rem;
+      text-align: center;
+    }
+  
+    .about-us-text h2 {
+      text-align: center;
+    }
+  
+    .header-menu-content-list ul {
+      display: none;
+    }
+  
+    .header-menu {
+      height: 3rem;
+    }
+  
+    .header-menu-content-title p {
+      font-size: 15px;
+    }
+  
+    .services-cards article {
+      padding: 1.5rem;
+    }
+  
+    .services-cards,
+    .instructors-cards,
+    .pricing-cards {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  
+    form {
+      width: 80%;
+    }
+  
+    footer p {
+      font-size: 15px;
+    }
+  }
+  
