@@ -56,7 +56,4 @@ function keyUpImgPrevous(event) {
 btnNext.addEventListener("click", imgNext);
 btnPrevious.addEventListener("click", imgPrevous);
 
-document.addEventListener("keyup", keyUpImgNext);
-document.addEventListener("keyup", keyUpImgPrevous);
-
 displayImg();
