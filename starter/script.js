@@ -49,22 +49,48 @@ function storeValues() {
   );
 }
 
+let timerRunning = false;
+let intervalId = null;
+let duration = 0;
+let barTimer = 0;
+
+function startTimer() {
+  intervalId = setInterval(function () {
+    barTimer--;
+    progressBar.style.width = ((duration - barTimer) / duration) * 100 + "%";
+
+    if (barTimer < 0) {
+      clearInterval(intervalId);
+      progressBar.style.width = "0%";
+      isStudySession = !isStudySession;
+      startSession();
+    }
+  }, 1000);
+}
+
 function startSession() {
-  let duration = isStudySession
-    ? +studyDuration.value * 60
-    : +breakDuration.value * 60;
+  if (timerRunning) {
+    clearInterval(intervalId);
+    progressBar.style.width = "0%";
+  }
 
-  let barTimer = duration;
+  const studyDurationValue = +studyDuration.value;
+  const breakDurationValue = +breakDuration.value;
 
-  if (duration === 0) {
+  if (
+    studyDurationValue <= 0 ||
+    breakDurationValue <= 0 ||
+    !Number.isInteger(studyDurationValue) ||
+    !Number.isInteger(breakDurationValue)
+  ) {
     alert(
-      isStudySession
-        ? "Please enter study duration."
-        : "Please enter break duration."
+      "Please enter valid minutes for Study and Break Durations."
     );
-
     return;
   }
+
+  duration = isStudySession ? studyDurationValue * 60 : breakDurationValue * 60;
+  barTimer = duration;
 
   if (isStudySession) {
     storeValues();
@@ -76,17 +102,9 @@ function startSession() {
       : "Study session complete! Time for a break!"
   );
 
-  let time = setInterval(function () {
-    barTimer--;
-    progressBar.style.width = ((duration - barTimer) / duration) * 100 + "%";
+  startTimer();
 
-    if (barTimer < 0) {
-      clearInterval(time);
-      progressBar.style.width = "0%";
-      isStudySession = !isStudySession;
-      startSession();
-    }
-  }, 1000);
+  timerRunning = true;
 }
 
 startButton.addEventListener("click", startSession);
