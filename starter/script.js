@@ -57,7 +57,12 @@ let barTimer = 0;
 function startTimer() {
   intervalId = setInterval(function () {
     barTimer--;
+    console.log(barTimer);
     progressBar.style.width = ((duration - barTimer) / duration) * 100 + "%";
+
+    if (!isStudySession && barTimer === 0) {
+      storeValues();
+    }
 
     if (barTimer < 0) {
       clearInterval(intervalId);
@@ -83,17 +88,17 @@ function startSession() {
     !Number.isInteger(studyDurationValue) ||
     !Number.isInteger(breakDurationValue)
   ) {
-    alert(
-      "Please enter valid minutes for Study and Break Durations."
-    );
+    alert("Please enter valid minutes for Study and Break Durations.");
     return;
   }
 
   duration = isStudySession ? studyDurationValue * 60 : breakDurationValue * 60;
   barTimer = duration;
 
-  if (isStudySession) {
-    storeValues();
+  sessionHistory.innerText = "";
+  for (let i = 1; i <= studySession; i++) {
+    let item = localStorage.getItem(`time${i}`);
+    sessionHistory.innerText += `${item}\n`;
   }
 
   alert(
