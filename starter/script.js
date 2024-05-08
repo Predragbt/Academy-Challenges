@@ -8,13 +8,17 @@ let isStudySession = true;
 
 let studySession;
 
-document.addEventListener("DOMContentLoaded", function () {
-  studySession = Math.floor(Object.keys(localStorage).length / 3);
-
+function displayHistory() {
   for (let i = 1; i <= studySession; i++) {
     let item = localStorage.getItem(`time${i}`);
     sessionHistory.innerText += `${item}\n`;
   }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  studySession = Math.floor(Object.keys(localStorage).length / 3);
+
+  displayHistory();
 });
 
 function storeValues() {
@@ -64,7 +68,7 @@ function startTimer() {
       storeValues();
     }
 
-    if (barTimer < 0) {
+    if (barTimer === -1) {
       clearInterval(intervalId);
       progressBar.style.width = "0%";
       isStudySession = !isStudySession;
@@ -96,10 +100,7 @@ function startSession() {
   barTimer = duration;
 
   sessionHistory.innerText = "";
-  for (let i = 1; i <= studySession; i++) {
-    let item = localStorage.getItem(`time${i}`);
-    sessionHistory.innerText += `${item}\n`;
-  }
+  displayHistory();
 
   alert(
     isStudySession
