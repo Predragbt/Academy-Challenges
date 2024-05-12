@@ -21,17 +21,21 @@ document.addEventListener("DOMContentLoaded", function () {
   displayHistory();
 });
 
+function padZero(num) {
+  return num < 10 ? `0${num}` : num;
+}
+
 function storeValues() {
   const currentStudyDuration = studyDuration.value;
   const currentBreakDuration = breakDuration.value;
 
   const newDate = new Date();
   const year = newDate.getFullYear();
-  const month = newDate.getMonth();
-  const day = newDate.getDay();
+  const month = padZero(newDate.getMonth() + 1);
+  const day = padZero(newDate.getDate());
   let hours = newDate.getHours();
-  const minutes = newDate.getMinutes();
-  const seconds = newDate.getSeconds();
+  const minutes = padZero(newDate.getMinutes());
+  const seconds = padZero(newDate.getSeconds());
 
   if (hours === 24) {
     hours = `${12}:${minutes}:${seconds} AM`;
@@ -61,7 +65,6 @@ let barTimer = 0;
 function startTimer() {
   intervalId = setInterval(function () {
     barTimer--;
-    console.log(barTimer);
     progressBar.style.width = ((duration - barTimer) / duration) * 100 + "%";
 
     if (!isStudySession && barTimer === 0) {
