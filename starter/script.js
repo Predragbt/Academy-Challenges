@@ -120,8 +120,8 @@ function displayRecentSearches() {
     recentSearches.appendChild(listItem);
 
     listItem.addEventListener("click", () => {
-      Weather.fetchWeather(weatherData.city);
-      Weather.fetchForecast(weatherData.city);
+      Weather.displayCurrentWeather(weatherData);
+      Weather.displayForecast(weatherData);
     });
   });
 }
