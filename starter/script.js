@@ -19,7 +19,11 @@ class Weather {
 
     if (weatherData) {
       Weather.displayCurrentWeather(weatherData);
+      saveRecentSearch(weatherData);
       return weatherData;
+    } else {
+      alert("City not found");
+      return null;
     }
   }
 
@@ -36,8 +40,6 @@ class Weather {
     const forecastData = Weather.fetchWeather(city);
     if (forecastData) {
       Weather.displayForecast(forecastData);
-    } else {
-      alert("City not found");
     }
   }
 
@@ -86,9 +88,43 @@ function searchWeather() {
   } else {
     alert("Please enter a city name");
   }
+
+  cityName.value = "";
 }
 
-// Exercise 03
-function saveRecentSearch(city) {}
+const recentSearchList =
+  JSON.parse(localStorage.getItem("recentSearches")) || [];
 
-function displayRecentSearches() {}
+console.log(recentSearchList);
+
+// Exercise 03
+function saveRecentSearch(weatherData) {
+  const city = weatherData.city;
+
+  if (!recentSearchList.some((item) => item.city === city)) {
+    recentSearchList.push(weatherData);
+
+    localStorage.setItem("recentSearches", JSON.stringify(recentSearchList));
+  }
+
+  displayRecentSearches();
+}
+
+function displayRecentSearches() {
+  recentSearches.innerHTML = "";
+
+  recentSearchList.forEach((weatherData) => {
+    const listItem = document.createElement("li");
+    listItem.classList.add("list-group-item", "list-group-item-action");
+    listItem.textContent = weatherData.city;
+    recentSearches.appendChild(listItem);
+
+    listItem.addEventListener("click", () => {
+      Weather.fetchWeather(weatherData.city);
+      Weather.fetchForecast(weatherData.city);
+    });
+  });
+}
+
+displayRecentSearches();
+// localStorage.clear();
