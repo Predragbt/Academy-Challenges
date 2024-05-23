@@ -1,6 +1,7 @@
 const cityName = document.querySelector("#cityName");
 const weatherDisplay = document.querySelector("#weatherDisplay");
 const recentSearches = document.querySelector("#recentSearches");
+const clearHistory = document.querySelector("#clearHistory");
 
 // Write the JavaScript class Weather here
 class Weather {
@@ -92,10 +93,7 @@ function searchWeather() {
   cityName.value = "";
 }
 
-const recentSearchList =
-  JSON.parse(localStorage.getItem("recentSearches")) || [];
-
-console.log(recentSearchList);
+let recentSearchList = JSON.parse(localStorage.getItem("recentSearches")) || [];
 
 // Exercise 03
 function saveRecentSearch(weatherData) {
@@ -115,7 +113,11 @@ function displayRecentSearches() {
 
   recentSearchList.forEach((weatherData) => {
     const listItem = document.createElement("li");
-    listItem.classList.add("list-group-item", "list-group-item-action");
+    listItem.classList.add(
+      "list-group-item",
+      "list-group-item-action",
+      "cursor-pointer"
+    );
     listItem.textContent = weatherData.city;
     recentSearches.appendChild(listItem);
 
@@ -127,4 +129,9 @@ function displayRecentSearches() {
 }
 
 displayRecentSearches();
-// localStorage.clear();
+
+clearHistory.addEventListener("click", function () {
+  recentSearches.innerHTML = "";
+  localStorage.clear();
+  recentSearchList = [];
+});

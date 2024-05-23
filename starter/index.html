@@ -9,6 +9,12 @@
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
     />
+
+    <style>
+      .cursor-pointer {
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body>
     <div class="container mt-5">
@@ -31,6 +37,10 @@
         <div class="col-md-4">
           <h3>Recent Searches</h3>
           <div id="recentSearches" class="list-group"></div>
+
+          <button class="btn btn-primary mt-2" id="clearHistory">
+            Clear History
+          </button>
         </div>
       </div>
     </div>
