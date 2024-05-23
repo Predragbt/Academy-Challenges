@@ -37,10 +37,9 @@ class Weather {
   }
 
   // Exercise 02
-  static fetchForecast(city) {
-    const forecastData = Weather.fetchWeather(city);
-    if (forecastData) {
-      Weather.displayForecast(forecastData);
+  static fetchForecast(weatherData) {
+    if (weatherData) {
+      Weather.displayForecast(weatherData);
     }
   }
 
@@ -84,8 +83,10 @@ Weather.weatherData = [
 function searchWeather() {
   const city = cityName.value.trim();
   if (city) {
-    Weather.fetchWeather(city);
-    Weather.fetchForecast(city);
+    const weatherData = Weather.fetchWeather(city);
+    if (weatherData) {
+      Weather.fetchForecast(weatherData);
+    }
   } else {
     alert("Please enter a city name");
   }
@@ -107,6 +108,13 @@ function saveRecentSearch(weatherData) {
 
   displayRecentSearches();
 }
+
+// If we want to save same city twice when we search it again
+// function saveRecentSearch(weatherData) {
+//   recentSearchList.push(weatherData);
+//   localStorage.setItem("recentSearches", JSON.stringify(recentSearchList));
+//   displayRecentSearches();
+// }
 
 function displayRecentSearches() {
   recentSearches.innerHTML = "";
