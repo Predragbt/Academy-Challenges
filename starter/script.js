@@ -2,6 +2,7 @@ const cityName = document.querySelector("#cityName");
 const weatherDisplay = document.querySelector("#weatherDisplay");
 const recentSearches = document.querySelector("#recentSearches");
 const clearHistory = document.querySelector("#clearHistory");
+const searchWeatherBtn = document.querySelector("#searchWeather");
 
 // Write the JavaScript class Weather here
 class Weather {
@@ -30,10 +31,9 @@ class Weather {
 
   static displayCurrentWeather(data) {
     weatherDisplay.innerHTML = `<h3>City: ${data.city}</h3>
-    <p>Temperature: ${data.temperature}°C</p>
-    <p>Humidity: ${data.humidity}%</p>
-    <p>Wind Speed: ${data.windSpeed} m/s</p>
-  `;
+      <p>Temperature: ${data.temperature}°C</p>
+      <p>Humidity: ${data.humidity}%</p>
+      <p>Wind Speed: ${data.windSpeed} m/s</p>`;
   }
 
   // Exercise 02
@@ -47,9 +47,7 @@ class Weather {
     let forecastHtml = `<h3>5-Day Forecast for ${data.city}</h3>`;
     for (let i = 1; i <= 5; i++) {
       const temperatureEachDay = data.temperature + i;
-      forecastHtml += `<p>Day ${
-        i - 1 + 1
-      }: Temperature ${temperatureEachDay}°C</p>`;
+      forecastHtml += `<p>Day ${i}: Temperature ${temperatureEachDay}°C</p>`;
     }
     weatherDisplay.innerHTML += forecastHtml;
   }
@@ -102,7 +100,6 @@ function saveRecentSearch(weatherData) {
 
   if (!recentSearchList.some((item) => item.city === city)) {
     recentSearchList.push(weatherData);
-
     localStorage.setItem("recentSearches", JSON.stringify(recentSearchList));
   }
 
@@ -143,3 +140,5 @@ clearHistory.addEventListener("click", function () {
   localStorage.clear();
   recentSearchList = [];
 });
+
+searchWeatherBtn.addEventListener("click", searchWeather);
