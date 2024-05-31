@@ -39,7 +39,7 @@ function addCurrentDateToScreen() {
 
 const tasks = loadTasksFromLocalStorage();
 
-function getDate() {
+function addTaskToList() {
   if (taskDescription.value.trim() === "" || taskTime.value.trim() === "") {
     alert("Please add task description and time.");
     return;
@@ -48,12 +48,12 @@ function getDate() {
   const task = new ToDo(taskDescription.value, taskTime.value);
   tasks.push(task);
   saveTasksToLocalStorage();
-  addDateToDom();
+  renderTasks();
   taskDescription.value = "";
   taskTime.value = "";
 }
 
-function addDateToDom() {
+function renderTasks() {
   taskList.innerHTML = "";
 
   tasks.forEach((task, index) => {
@@ -66,12 +66,7 @@ function addDateToDom() {
       "justify-content-between",
       "align-items-center"
     );
-    liItem.innerText = `${task.time}: Task ${task.description}`;
-
-    const taskTimeParts = task.time.split(":");
-    console.log(taskTimeParts);
-    const taskHours = parseInt(taskTimeParts[0], 10);
-    const taskMinutes = parseInt(taskTimeParts[1], 10);
+    liItem.innerText = `${task.time}: ${task.description}`;
 
     listBtn.classList.add("btn", "btn-danger");
     listBtn.innerText = "Remove";
@@ -80,11 +75,10 @@ function addDateToDom() {
       const deleteConfirmation = confirm(
         "Are you sure you want to delete this task?"
       );
-
       if (deleteConfirmation) {
         tasks.splice(index, 1);
         saveTasksToLocalStorage();
-        addDateToDom();
+        renderTasks();
       }
     });
 
@@ -95,11 +89,15 @@ function addDateToDom() {
     const currentHours = now.getHours();
     const currentMinutes = now.getMinutes();
 
+    const taskTimeParts = task.time.split(":");
+    const taskHours = parseInt(taskTimeParts[0], 10);
+    const taskMinutes = parseInt(taskTimeParts[1], 10);
+
     if (
       taskHours < currentHours ||
       (taskHours === currentHours && taskMinutes <= currentMinutes)
     ) {
-      liItem.classList.add("bg-warning", "bg-opacity-25", "text-dark");
+      liItem.classList.add("current-hour");
     }
   });
 }
@@ -114,11 +112,10 @@ function loadTasksFromLocalStorage() {
 }
 
 function updateTasks() {
-  setInterval(addDateToDom, 1000);
+  setInterval(renderTasks, 30000); // Adjust interval as needed
 }
 
-addTask.addEventListener("click", getDate);
+addTask.addEventListener("click", addTaskToList);
 addCurrentDateToScreen();
-addDateToDom();
-
+renderTasks();
 updateTasks();
