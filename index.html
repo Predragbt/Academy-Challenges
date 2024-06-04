@@ -13,30 +13,33 @@
     <h2>Expense Tracker</h2>
 
     <!-- Expense Form -->
-    <div class="mb-3">
+    <form id="expenseForm" class="mb-3">
       <input
         type="text"
         id="description"
         placeholder="Description"
         class="form-control"
+        required
       />
       <input
         type="number"
         id="amount"
         placeholder="Amount"
         class="form-control mt-2"
+        required
       />
-      <input type="date" id="date" class="form-control mt-2" />
-      <select id="category" class="form-control mt-2">
+      <input type="date" id="date" class="form-control mt-2" required />
+      <select id="category" class="form-control mt-2" required>
         <option value="Food">Food</option>
         <option value="Transport">Transport</option>
         <option value="Entertainment">Entertainment</option>
       </select>
       <input type="hidden" id="editIndex" value="" />
-      <button id="submitExpense" onclick="addOrUpdateExpense()" class="btn btn-primary mt-2">
+      <button type="submit" id="submitExpense" class="btn btn-primary mt-2">
         Submit Expense
       </button>
-    </div>
+    </form>
+
     <!-- Display Expenses -->
     <div class="container mt-5">
       <div class="mt-4">
