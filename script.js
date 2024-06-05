@@ -59,9 +59,9 @@ function renderExpenses() {
   expenses.forEach((expense, index) => {
     htmlString += `<tr>
       <td>${expense.description}</td>
-      <td>${expense.category}</td>
       <td>$${expense.amount.toFixed(2)}</td>
       <td>${expense.date}</td>
+      <td>${expense.category}</td>
       <td>
         <button onclick="editExpense(${index})" class="btn btn-primary">Edit</button>
         <button onclick="deleteExpense(${index})" class="btn btn-danger">Delete</button>
