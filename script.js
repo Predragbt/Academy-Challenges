@@ -1,3 +1,4 @@
+// Get DOM elements
 const descriptionInput = document.getElementById("description");
 const amountInput = document.getElementById("amount");
 const categoryInput = document.getElementById("category");
@@ -6,6 +7,7 @@ const submitExpenseBtn = document.getElementById("submitExpense");
 const expensesList = document.getElementById("expensesList");
 const expenseForm = document.getElementById("expenseForm");
 
+// Expense class definition
 class Expense {
   constructor(description, amount, category, date) {
     this.description = description;
@@ -15,15 +17,19 @@ class Expense {
   }
 }
 
+// Retrieve expenses from localStorage or initialize an empty array
 const expenses = JSON.parse(localStorage.getItem("expenses")) || [];
 
+// Save expenses to localStorage
 function saveExpensesToLocalStorage() {
   localStorage.setItem("expenses", JSON.stringify(expenses));
 }
 
+// Add or update an expense
 function addOrUpdateExpense(event) {
   event.preventDefault();
 
+  // Get form values
   const description = descriptionInput.value;
   const amount = parseFloat(amountInput.value);
   const category = categoryInput.value;
@@ -32,9 +38,11 @@ function addOrUpdateExpense(event) {
   const editIndex = document.getElementById("editIndex").value;
 
   if (editIndex === "") {
+    // Add new expense
     const expense = new Expense(description, amount, category, date);
     expenses.push(expense);
   } else {
+    // Update existing expense
     expenses[editIndex] = new Expense(description, amount, category, date);
     document.getElementById("editIndex").value = "";
     submitExpenseBtn.innerText = "Submit Expense";
@@ -45,6 +53,7 @@ function addOrUpdateExpense(event) {
   expenseForm.reset();
 }
 
+// Render expenses to the table
 function renderExpenses() {
   let htmlString = "";
   expenses.forEach((expense, index) => {
@@ -62,6 +71,7 @@ function renderExpenses() {
   expensesList.innerHTML = htmlString;
 }
 
+// Edit an expense
 function editExpense(index) {
   const expense = expenses[index];
   descriptionInput.value = expense.description;
@@ -73,6 +83,7 @@ function editExpense(index) {
   submitExpenseBtn.innerText = "Update Expense";
 }
 
+// Delete an expense
 function deleteExpense(index) {
   if (confirm("Are you sure you want to delete this expense?")) {
     expenses.splice(index, 1);
@@ -81,6 +92,7 @@ function deleteExpense(index) {
   }
 }
 
+// Sort expenses by a property (amount)
 function sortExpenses(property, order) {
   expenses.sort((a, b) => {
     if (order === "asc") {
@@ -92,5 +104,8 @@ function sortExpenses(property, order) {
   renderExpenses();
 }
 
+// Event listener for form submission
 expenseForm.addEventListener("submit", addOrUpdateExpense);
+
+// Initial rendering of expenses
 renderExpenses();
