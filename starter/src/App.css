@@ -25,6 +25,95 @@ h3 {
   font-weight: 700; /* var.$font-weight-bold */
 }
 
+.MarginAuto {
+  padding: 0px 150px;
+}
+
+.Banner {
+  text-align: center;
+  background-image: url("../public/786-3500x1000.jpg");
+  background-position: center;
+  background-size: cover;
+  height: 70vh;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  width: 100%;
+  flex-direction: column;
+  position: relative;
+  text-align: start;
+}
+
+.Banner button {
+  border: none;
+  padding: 10px 30px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.Banner button:hover {
+  background-color: orange;
+  color: white;
+}
+
+.Banner p {
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.Banner h1 {
+  margin: 20px 0;
+}
+
+.Details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.DetailsText {
+  flex-grow: 2;
+}
+
+.DetailsImg {
+  border-radius: 50%;
+  width: 700px;
+  min-width: 250px;
+  margin-left: 50px;
+}
+
+.DetailsAbout {
+  color: orange;
+  text-transform: uppercase;
+}
+
+.Footer {
+  background-color: rgb(247, 247, 247);
+  width: 100%;
+  text-align: center;
+  padding: 50px 0;
+}
+
+.Footer a {
+  text-transform: uppercase;
+  display: block;
+  text-decoration: none;
+  color: orange;
+}
+
+.Footer a:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.Footer a:hover {
+  text-decoration: underline;
+}
+
 h1 {
   font-size: 3.75rem; /* var.$heading-size-bigger */
 
@@ -46,5 +135,39 @@ h3 {
 
   @media (max-width: 425px) {
     font-size: 1.25rem; /* var.$font-size-medium */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .MarginAuto {
+    padding: 0px 15px;
+  }
+
+  .DetailsImg {
+    margin: 0;
+  }
+
+  .DetailsText {
+    width: 100%;
+    padding-right: 25px;
+  }
+
+  .Footer {
+    padding: 25px 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .Details {
+    flex-direction: column;
+  }
+
+  .Banner button {
+    width: 100%;
+  }
+
+  .DetailsText {
+    margin-bottom: 15px;
+    padding: 0px;
   }
 }
