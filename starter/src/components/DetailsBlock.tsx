@@ -1,4 +1,4 @@
-import { Component, ReactNode } from "react";
+import { Component } from "react";
 
 interface Props {
   title: string;
@@ -16,8 +16,8 @@ export class DetailsBlock extends Component<Props> {
         <div className="Details MarginAuto">
           <div className="DetailsText">
             <p className="DetailsAbout">About</p>
-            <h3>{this.props.title}</h3>
-            <p>
+            <h2>{this.props.title}</h2>
+            <p className="DetailsParagraph">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Voluptatem ratione temporibus id eos, amet est quaerat,
               perferendis sint, officiis quisquam aspernatur ad ducimus rerum
@@ -32,7 +32,11 @@ export class DetailsBlock extends Component<Props> {
             </p>
           </div>
           <div>
-            <img className="DetailsImg" src={this.props.img} alt={"Image description"} />
+            <img
+              className="DetailsImg"
+              src={this.props.img}
+              alt={"Image description"}
+            />
           </div>
         </div>
       </>
