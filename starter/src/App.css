@@ -157,6 +157,10 @@ p {
 h1 {
   font-size: 3.75rem; /* var.$heading-size-bigger */
 
+  @media (max-width: 768px) {
+    font-size: 3.25rem; /* var.$heading-size-normal */
+  }
+
   @media (max-width: 425px) {
     font-size: 2.75rem; /* var.$heading-size-big */
   }
