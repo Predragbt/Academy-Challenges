@@ -1,0 +1,234 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+* {
+  box-sizing: border-box;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+body {
+  font-family: "Montserrat", sans-serif; /* var.$font-family-base */
+  font-size: 1rem; /* var.$font-size-base */
+  font-weight: 400; /* var.$font-weight-base */
+  line-height: 1.5; /* var.$line-height-base */
+  color: #000; /* var.$text-color-base */
+  margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  margin-bottom: 0.9375rem; /* math.div(var.$gutter-base, 2) */
+  line-height: 1; /* var.$line-height-small */
+  font-weight: 700; /* var.$font-weight-bold */
+}
+
+p {
+  margin: 0;
+}
+
+.MarginAuto {
+  padding: 0px 150px;
+}
+
+.Banner {
+  text-align: center;
+  background-image: url("../public/786-3500x1000.jpg");
+  background-position: center;
+  background-size: cover;
+  height: 70vh;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  width: 100%;
+  flex-direction: column;
+  position: relative;
+  text-align: start;
+}
+
+.Banner button {
+  border: none;
+  padding: 10px 30px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.Banner button:hover {
+  background-color: orange;
+  color: white;
+}
+
+.Banner p {
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.Banner h1 {
+  margin: 20px 0;
+}
+
+.PlacesContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.Place {
+  position: relative;
+}
+
+.Place img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.PlaceContent {
+  position: absolute;
+  text-align: center;
+  bottom: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  color: white;
+  width: 90%;
+}
+
+.PlaceContent h2 {
+  margin: 0 0 15px 0;
+}
+
+.Details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.DetailsText {
+  flex-grow: 2;
+}
+
+.DetailsText h2 {
+  margin-top: 15px;
+}
+
+.DetailsParagraph {
+  margin-bottom: 15px;
+}
+
+.DetailsImg {
+  border-radius: 50%;
+  width: 700px;
+  margin-left: 50px;
+}
+
+.DetailsAbout {
+  color: orange;
+  text-transform: uppercase;
+}
+
+.Footer {
+  background-color: rgb(247, 247, 247);
+  width: 100%;
+  text-align: center;
+  padding: 50px 0;
+}
+
+.Footer a {
+  text-transform: uppercase;
+  display: block;
+  text-decoration: none;
+  color: orange;
+}
+
+.Footer a:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.Footer a:hover {
+  text-decoration: underline;
+}
+
+h1 {
+  font-size: 3.75rem; /* var.$heading-size-bigger */
+
+  @media (max-width: 768px) {
+    font-size: 3.25rem; /* var.$heading-size-normal */
+  }
+
+  @media (max-width: 425px) {
+    font-size: 2.75rem; /* var.$heading-size-big */
+  }
+}
+
+h2 {
+  font-size: 2.75rem; /* var.$heading-size-big */
+
+  @media (max-width: 768px) {
+    font-size: 2rem; /* var.$heading-size-normal */
+  }
+
+  @media (max-width: 425px) {
+    font-size: 1.75rem; /* var.$heading-size-small */
+  }
+}
+
+h3 {
+  font-size: 1.5625rem; /* var.$heading-size-tiny */
+
+  @media (max-width: 425px) {
+    font-size: 1.25rem; /* var.$font-size-medium */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .MarginAuto {
+    padding: 0px 15px;
+  }
+
+  .PlacesContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .DetailsImg {
+    width: 100%;
+    margin: 0;
+  }
+
+  .DetailsText {
+    width: 100%;
+    padding-right: 25px;
+  }
+
+  .Footer {
+    padding: 25px 0;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .Details {
+    flex-direction: column;
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+
+  .Banner button {
+    width: 100%;
+  }
+
+  .PlacesContainer {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .DetailsText {
+    margin-bottom: 25px;
+    padding: 0px;
+  }
+}
