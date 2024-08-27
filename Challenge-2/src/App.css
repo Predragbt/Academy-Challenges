@@ -17,11 +17,19 @@ body {
 
 .footer-icon-box {
   background-color: #ffc400;
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
 }
 
 .footer-icon-box:hover {
   cursor: pointer;
   background-color: #ffae00;
+}
+
+.navbar {
+  border-bottom: 3px solid rgb(235, 232, 232);
+}
+
+.navbar-nav img {
+  width: 100px;
 }
