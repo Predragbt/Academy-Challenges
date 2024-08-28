@@ -12,25 +12,25 @@ export const Footer = () => {
       <div className="footer-section flex-1">
         <h5 className="fw-bold">Social share</h5>
         <div className="footer-icons d-flex align-items-center">
-          <div className="footer-icon-box d-flex justify-content-center align-items-center me-2s p-2  ">
+          <div className="footer-icon-box d-flex justify-content-center align-items-center me-2 p-2 bg-warning">
             <FontAwesomeIcon
               icon={faFacebookF}
               className="footer-icon text-white"
             />
           </div>
-          <div className="footer-icon-box d-flex justify-content-center align-items-center me-2 p-2">
+          <div className="footer-icon-box d-flex justify-content-center align-items-center me-2 p-2 bg-warning">
             <FontAwesomeIcon
               icon={faInstagram}
               className="footer-icon text-white"
             />
           </div>
-          <div className="footer-icon-box d-flex justify-content-center align-items-center me-2 p-2">
+          <div className="footer-icon-box d-flex justify-content-center align-items-center me-2 p-2 bg-warning">
             <FontAwesomeIcon
               icon={faTwitter}
               className="footer-icon text-white"
             />
           </div>
-          <div className="footer-icon-box d-flex justify-content-center align-items-center p-2">
+          <div className="footer-icon-box d-flex justify-content-center align-items-center p-2 bg-warning">
             <FontAwesomeIcon
               icon={faLinkedinIn}
               className="footer-icon text-white"

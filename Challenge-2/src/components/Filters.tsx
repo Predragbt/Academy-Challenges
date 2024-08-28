@@ -13,6 +13,8 @@ interface BikeData {
 
 export const Filters = () => {
   const [bikeData, setBikeData] = useState<BikeData[]>([]);
+  const [filteredBikes, setFilteredBikes] = useState<BikeData[]>([]);
+  const [activeFilter, setActiveFilter] = useState<string>("all");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,6 +25,7 @@ export const Filters = () => {
         const data = await response.json();
 
         setBikeData(data.products);
+        setFilteredBikes(data.products); // Initialize with all bikes
       } catch (error) {
         console.error(error);
       }
@@ -31,8 +34,19 @@ export const Filters = () => {
   }, []);
 
   const handleFilterClick = (filterType: string) => {
-    console.log(`Filter clicked: ${filterType}`);
-    // Implement filtering logic here
+    setActiveFilter(filterType); // Set the clicked filter as active
+
+    if (filterType === "all") {
+      setFilteredBikes(bikeData); // Show all bikes
+    } else {
+      setFilteredBikes(
+        bikeData.filter(
+          (bike) =>
+            bike.gender.toLowerCase() === filterType.toLowerCase() ||
+            bike.brand.toLowerCase() === filterType.toLowerCase()
+        )
+      );
+    }
   };
 
   return (
@@ -46,8 +60,12 @@ export const Filters = () => {
             <ul className="list-unstyled">
               <EachFilter
                 label="Show All"
-                count={10}
+                count={bikeData.length}
                 onClick={() => handleFilterClick("all")}
+                listColor={activeFilter === "all" ? "text-warning" : ""}
+                badgeColor={
+                  activeFilter === "all" ? "bg-warning" : "bg-secondary"
+                }
               />
             </ul>
           </ListGroup.Item>
@@ -57,13 +75,29 @@ export const Filters = () => {
             <ul className="list-unstyled">
               <EachFilter
                 label="Male"
-                count={9}
+                count={
+                  bikeData.filter(
+                    (bike) => bike.gender.toLowerCase() === "male"
+                  ).length
+                }
                 onClick={() => handleFilterClick("male")}
+                listColor={activeFilter === "male" ? "text-warning" : ""}
+                badgeColor={
+                  activeFilter === "male" ? "bg-warning" : "bg-secondary"
+                }
               />
               <EachFilter
                 label="Female"
-                count={9}
+                count={
+                  bikeData.filter(
+                    (bike) => bike.gender.toLowerCase() === "female"
+                  ).length
+                }
                 onClick={() => handleFilterClick("female")}
+                listColor={activeFilter === "female" ? "text-warning" : ""}
+                badgeColor={
+                  activeFilter === "female" ? "bg-warning" : "bg-secondary"
+                }
               />
             </ul>
           </ListGroup.Item>
@@ -73,43 +107,110 @@ export const Filters = () => {
             <ul className="list-unstyled text-uppercase">
               <EachFilter
                 label="Le grand bikes"
-                count={7}
-                onClick={() => handleFilterClick("le-grand-bikes")}
+                count={
+                  bikeData.filter(
+                    (bike) => bike.brand.toLowerCase() === "le grand bikes"
+                  ).length
+                }
+                onClick={() => handleFilterClick("le grand bikes")}
+                listColor={
+                  activeFilter === "le grand bikes" ? "text-warning" : ""
+                }
+                badgeColor={
+                  activeFilter === "le grand bikes"
+                    ? "bg-warning"
+                    : "bg-secondary"
+                }
               />
               <EachFilter
                 label="Kross"
-                count={15}
+                count={
+                  bikeData.filter(
+                    (bike) => bike.brand.toLowerCase() === "kross"
+                  ).length
+                }
                 onClick={() => handleFilterClick("kross")}
+                listColor={activeFilter === "kross" ? "text-warning" : ""}
+                badgeColor={
+                  activeFilter === "kross" ? "bg-warning" : "bg-secondary"
+                }
               />
               <EachFilter
                 label="Explorer"
-                count={9}
+                count={
+                  bikeData.filter(
+                    (bike) => bike.brand.toLowerCase() === "explorer"
+                  ).length
+                }
                 onClick={() => handleFilterClick("explorer")}
+                listColor={activeFilter === "explorer" ? "text-warning" : ""}
+                badgeColor={
+                  activeFilter === "explorer" ? "bg-warning" : "bg-secondary"
+                }
               />
               <EachFilter
                 label="Visitor"
-                count={9}
+                count={
+                  bikeData.filter(
+                    (bike) => bike.brand.toLowerCase() === "visitor"
+                  ).length
+                }
                 onClick={() => handleFilterClick("visitor")}
+                listColor={activeFilter === "visitor" ? "text-warning" : ""}
+                badgeColor={
+                  activeFilter === "visitor" ? "bg-warning" : "bg-secondary"
+                }
               />
               <EachFilter
                 label="Pony"
-                count={9}
+                count={
+                  bikeData.filter((bike) => bike.brand.toLowerCase() === "pony")
+                    .length
+                }
                 onClick={() => handleFilterClick("pony")}
+                listColor={activeFilter === "pony" ? "text-warning" : ""}
+                badgeColor={
+                  activeFilter === "pony" ? "bg-warning" : "bg-secondary"
+                }
               />
               <EachFilter
                 label="Force"
-                count={9}
+                count={
+                  bikeData.filter(
+                    (bike) => bike.brand.toLowerCase() === "force"
+                  ).length
+                }
                 onClick={() => handleFilterClick("force")}
+                listColor={activeFilter === "force" ? "text-warning" : ""}
+                badgeColor={
+                  activeFilter === "force" ? "bg-warning" : "bg-secondary"
+                }
               />
               <EachFilter
                 label="E-Bikes"
-                count={16}
+                count={
+                  bikeData.filter(
+                    (bike) => bike.brand.toLowerCase() === "e-bikes"
+                  ).length
+                }
                 onClick={() => handleFilterClick("e-bikes")}
+                listColor={activeFilter === "e-bikes" ? "text-warning" : ""}
+                badgeColor={
+                  activeFilter === "e-bikes" ? "bg-warning" : "bg-secondary"
+                }
               />
               <EachFilter
                 label="Ideal"
-                count={16}
+                count={
+                  bikeData.filter(
+                    (bike) => bike.brand.toLowerCase() === "ideal"
+                  ).length
+                }
                 onClick={() => handleFilterClick("ideal")}
+                listColor={activeFilter === "ideal" ? "text-warning" : ""}
+                badgeColor={
+                  activeFilter === "ideal" ? "bg-warning" : "bg-secondary"
+                }
               />
             </ul>
           </ListGroup.Item>
@@ -117,11 +218,11 @@ export const Filters = () => {
       </div>
 
       <div className="container">
-        <div className="row ">
-          {bikeData.map((bike, index) => (
+        <div className="row">
+          {filteredBikes.map((bike, index) => (
             <div key={index} className="col-md-4 p-0 mb-4">
               <Card
-                image={`../img/${bike.image}.png`}
+                image={bike.image}
                 name={bike.name}
                 price={bike.price}
                 gender={bike.gender}
