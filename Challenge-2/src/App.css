@@ -33,3 +33,24 @@ body {
 .navbar-nav img {
   width: 100px;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.card-img-top {
+  transition: transform 0.5s;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.1);
+}
+
+.card:hover .card-body h5,
+.card:hover .card-body p {
+  text-decoration: underline;
+}
+
+.card-body {
+  background-color: #ffc400;
+}

@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const Header = () => {
   return (
-    <nav className="navbar navbar-expand-lg bg-body-white mx-3">
+    <nav className="navbar navbar-expand-lg bg-body-white mx-4">
       <div className="container-fluid">
         <div className="navbar-nav d-flex justify-content-between w-100">
           <div>

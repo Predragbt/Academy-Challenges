@@ -8,7 +8,7 @@ import {
 
 export const Footer = () => {
   return (
-    <footer className="footer d-flex justify-content-between p-3">
+    <footer className="footer d-flex justify-content-between p-4">
       <div className="footer-section flex-1">
         <h5 className="fw-bold">Social share</h5>
         <div className="footer-icons d-flex align-items-center">
