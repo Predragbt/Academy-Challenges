@@ -26,7 +26,7 @@ body {
 
 .footer-icon-box:hover {
   cursor: pointer;
-  background-color: #e29b00;
+  background-color: #cf9f1c !important;
 }
 
 .navbar {

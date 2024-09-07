@@ -22,7 +22,7 @@ export const EachFilter = ({
     >
       <span className="cursor-pointer">{label}</span>
       <Badge className={badgeColor} pill>
-        {count}
+        {count} {/* Display the number of items that match the filter */}
       </Badge>
     </li>
   );
