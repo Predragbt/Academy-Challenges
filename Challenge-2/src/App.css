@@ -45,6 +45,10 @@ body {
   transition: transform 0.5s;
 }
 
+.card {
+  height: 450px !important;
+}
+
 .card:hover .card-img-top {
   transform: scale(1.2);
 }
