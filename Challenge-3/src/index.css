@@ -69,11 +69,47 @@ img {
 }
 
 .artist-profile-image {
+  width: 130px;
+  margin-top: 30px;
+}
+
+.album-profile-image {
   width: 150px;
   margin-top: 30px;
+}
+
+.album-m-top {
+  margin-top: 10px;
+}
+.album-m-bottom {
+  margin-bottom: 20px;
 }
 
 .artist-profile h3 {
   padding-top: 10px;
   padding-bottom: 15px;
+}
+
+.artist-albums {
+  display: flex;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.artist-albums div {
+  flex: 0 0 50%;
+}
+
+.error-page-artist-album {
+  padding: 15px 0px;
+  font-weight: bold;
+}
+
+.error-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 50px;
 }

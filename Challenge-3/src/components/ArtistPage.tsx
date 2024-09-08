@@ -1,24 +1,18 @@
 import { useParams } from "react-router-dom";
 import { ArtistTypes } from "../types";
 import artists from "../db";
+import { AlbumsList } from "./AlbumList";
 
 export const ArtistPage = () => {
   const { id } = useParams();
 
-  let currentArtist: ArtistTypes | undefined = undefined;
-
-  if (id) {
-    currentArtist = artists.find(
-      (artist: ArtistTypes) => artist.id === Number(id)
-    );
-  }
+  const currentArtist = artists.find(
+    (artist: ArtistTypes) => artist.id === Number(id)
+  );
 
   if (!currentArtist) {
-    return <div>Artist not found</div>;
+    return <div className="artists-container error-page-artist-album">Artist not found</div>;
   }
-
-  // Log the image path to verify it's correct
-  console.log(`Image Path: images/covers/${currentArtist.cover}.jpg`);
 
   return (
     <div className="artists-container width-460 artist-profile">
@@ -31,11 +25,13 @@ export const ArtistPage = () => {
       <h3>{currentArtist.name}</h3>
       <p>{currentArtist.bio}</p>
 
-      <div className="albums">
+      <div className="artist-albums">
         {currentArtist.albums!.map((album: ArtistTypes["albums"][number]) => (
-          <li key={album.albumId}>
-            <strong>{album.title}</strong> ({album.year}) - ${album.price}
-          </li>
+          <AlbumsList
+            cover={album.cover}
+            albumId={album.albumId}
+            key={album.albumId}
+          />
         ))}
       </div>
     </div>

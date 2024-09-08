@@ -1,9 +1,16 @@
-export const AlbumsList = () => {
+import { Link } from "react-router-dom";
+
+interface AlbumsListProps {
+  cover: string;
+  albumId: string;
+}
+
+export const AlbumsList = ({ cover, albumId }: AlbumsListProps) => {
   return (
-    <ul>
-      <li>Album 1</li>
-      <li>Album 2</li>
-      <li>Album 3</li>
-    </ul>
+    <div>
+      <Link to={`${albumId}`}>
+        <img src={`/images/albums/${cover}.jpg`} alt="" />
+      </Link>
+    </div>
   );
 };
