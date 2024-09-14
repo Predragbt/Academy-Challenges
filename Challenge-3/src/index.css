@@ -53,7 +53,7 @@ img {
   height: 460px;
 }
 
-.card-button {
+.card-span {
   position: absolute;
   bottom: 0px;
   left: 0px;
@@ -61,11 +61,6 @@ img {
   color: white;
   border: none;
   padding: 5px 15px;
-}
-
-.card-button:hover {
-  background-color: rgb(136, 241, 255);
-  cursor: pointer;
 }
 
 .artist-profile-image {

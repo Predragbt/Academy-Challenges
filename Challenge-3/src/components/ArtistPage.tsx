@@ -1,17 +1,21 @@
 import { useParams } from "react-router-dom";
-import { ArtistTypes } from "../types";
-import artists from "../db";
 import { AlbumsList } from "./AlbumList";
+import { ArtistTypes } from "../types";
 
-export const ArtistPage = () => {
+interface ArtistPageProps {
+  artists: ArtistTypes[];
+}
+export const ArtistPage = ({ artists }: ArtistPageProps) => {
   const { id } = useParams();
 
-  const currentArtist = artists.find(
-    (artist: ArtistTypes) => artist.id === Number(id)
-  );
+  const currentArtist = artists.find((artist) => artist.id === Number(id));
 
   if (!currentArtist) {
-    return <div className="artists-container error-page-artist-album">Artist not found</div>;
+    return (
+      <div className="artists-container error-page-artist-album">
+        Artist not found
+      </div>
+    );
   }
 
   return (
@@ -26,12 +30,8 @@ export const ArtistPage = () => {
       <p>{currentArtist.bio}</p>
 
       <div className="artist-albums">
-        {currentArtist.albums!.map((album: ArtistTypes["albums"][number]) => (
-          <AlbumsList
-            cover={album.cover}
-            albumId={album.albumId}
-            key={album.albumId}
-          />
+        {currentArtist.albums.map((album) => (
+          <AlbumsList album={album} key={album.albumId} />
         ))}
       </div>
     </div>

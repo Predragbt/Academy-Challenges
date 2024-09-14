@@ -1,12 +1,21 @@
 import { Link } from "react-router-dom";
-import { ArtistSummary } from "../types";
+import { ArtistTypes } from "../types";
 
-export const ArtistItem = ({ cover, id, name }: ArtistSummary) => {
+interface Props {
+  artist: ArtistTypes;
+}
+
+export const ArtistItem = ({ artist }: Props) => {
   return (
     <div className="card width-460">
-      <img src={cover} alt={name} className="card-img" />
-      <Link to={`/artist/${id}`}>
-        <button className="card-button">{name}</button>
+      <Link to={`/artist/${artist.id}`}>
+        <img
+          src={`images/covers/${artist.cover}.jpg`}
+          alt={artist.name}
+          className="card-img"
+        />
+
+        <span className="card-span">{artist.name}</span>
       </Link>
     </div>
   );

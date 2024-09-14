@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
+import { ArtistTypes } from "../types";
 
 interface AlbumsListProps {
-  cover: string;
-  albumId: string;
+  album: ArtistTypes["albums"][number];
 }
 
-export const AlbumsList = ({ cover, albumId }: AlbumsListProps) => {
+export const AlbumsList = ({ album }: AlbumsListProps) => {
   return (
     <div>
-      <Link to={`${albumId}`}>
-        <img src={`/images/albums/${cover}.jpg`} alt="" />
+      <Link to={`${album.albumId}`}>
+        <img src={`/images/albums/${album.cover}.jpg`} alt="Album Cover" />
       </Link>
     </div>
   );

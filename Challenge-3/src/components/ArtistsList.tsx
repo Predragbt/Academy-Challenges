@@ -1,20 +1,17 @@
-import artists from "../db";
+import { ArtistTypes } from "../types";
 import { ArtistItem } from "./ArtistItem";
-import { ArtistSummary } from "../types";
 
-export const ArtistsList = () => {
+interface Props {
+  artists: ArtistTypes[];
+}
+
+export const ArtistsList = ({ artists }: Props) => {
   return (
     <>
       <div className="artists-container">
         <h2>Browse the artists</h2>
-        {artists.map((artist: ArtistSummary) => (
-          <ArtistItem
-            cover={`images/covers/${artist.cover}.jpg`}
-            id={artist.id}
-            name={artist.name}
-            key={artist.id}
-            bio={artist.bio}
-          />
+        {artists.map((artist) => (
+          <ArtistItem artist={artist} key={artist.id} />
         ))}
       </div>
     </>

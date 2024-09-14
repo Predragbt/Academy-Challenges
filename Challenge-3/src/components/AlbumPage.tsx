@@ -1,12 +1,15 @@
 import { useParams } from "react-router-dom";
 import { ArtistTypes } from "../types";
-import artists from "../db";
 
-export const AlbumPage = () => {
+interface AlbumPageProps {
+  artists: ArtistTypes[];
+}
+
+export const AlbumPage = ({ artists }: AlbumPageProps) => {
   const { albumId } = useParams();
 
   const currentAlbum = artists
-    .map((artists: ArtistTypes) => artists.albums)
+    .map((artists) => artists.albums)
     .flat()
     .find((album) => album.albumId === albumId);
 

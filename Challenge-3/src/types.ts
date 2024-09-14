@@ -1,13 +1,8 @@
-// Interface for Artist without albums (for ArtistItem)
-export interface ArtistSummary {
+export interface ArtistTypes {
   id: number;
   name: string;
   cover: string;
   bio: string;
-}
-
-// Interface for Artist with albums (for ArtistPage)
-export interface ArtistTypes extends ArtistSummary {
   albums: {
     albumId: string;
     title: string;
