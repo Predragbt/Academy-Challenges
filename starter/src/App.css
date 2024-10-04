@@ -1,0 +1,43 @@
+p {
+  margin: 0;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* .container {
+  max-width: 1115px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 30px;
+  margin-bottom: 60px;
+  border-bottom: 2px solid black;
+} */
+
+/* .res {
+  flex: 0 1 200px;
+  margin-right: 15px;
+  margin-bottom: 30px;
+} */
+
+/* .res picture {
+  display: block;
+  height: 200px;
+} */
+
+/* .res picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+} */
+
+/* img {
+  max-width: 100%;
+  display: block;
+} */
+
+/* .cuisine {
+  margin-right: 15px;
+} */

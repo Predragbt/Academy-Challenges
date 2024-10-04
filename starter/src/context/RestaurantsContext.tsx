@@ -1,0 +1,55 @@
+import { createContext, useContext, useState } from "react";
+import { useFetch } from "../hooks/useFetch";
+
+export interface RestaurantsProps {
+  reviews: number;
+  parkinglot: boolean;
+  phone: string;
+  image: string;
+  restauranttype: string;
+  businessname: string;
+  address: string;
+  slug: string;
+  email: string;
+  id: string;
+  reviewsList: [
+    {
+      id: number;
+      author: string;
+      comment: string;
+      stars: number;
+    }
+  ];
+}
+
+interface RestaurantsContextType {
+  restaurants: RestaurantsProps[] | null;
+  loading: boolean;
+  error: string | null;
+}
+
+export const RestaurantsContext = createContext<RestaurantsContextType>({
+  restaurants: null,
+  loading: false,
+  error: null,
+});
+
+export const RestaurantsProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const {
+    data: restaurants,
+    error,
+    loading,
+  } = useFetch<RestaurantsProps[]>("http://localhost:5001/restaurants");
+
+  return (
+    <RestaurantsContext.Provider value={{ restaurants, error, loading }}>
+      {children}
+    </RestaurantsContext.Provider>
+  );
+};
+
+export const useRestaurants = () => useContext(RestaurantsContext);
