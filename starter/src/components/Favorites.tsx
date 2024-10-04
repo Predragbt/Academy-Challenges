@@ -4,7 +4,7 @@ import { RestaurantsCard } from "./RestaurantCard";
 
 export const Favorites = () => {
   const { restaurants, loading, error } = useRestaurants();
-  const { favorites, toggleFavorite } = useRestaurantStore();
+  const { favorites } = useRestaurantStore();
 
   const favoriteRestaurants = restaurants?.filter((restaurants) =>
     favorites.includes(restaurants.id)

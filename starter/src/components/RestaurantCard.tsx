@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import { RestaurantsProps } from "../context/RestaurantsContext";
 import { useRestaurantStore } from "../store/restaurantStore"; // Import Zustand store
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faSolidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faRegularHeart } from "@fortawesome/free-regular-svg-icons"; // Regular heart for not favorited
+import { RestaurantsProps } from "../types/RestaurantsProps";
 
 export const RestaurantsCard = ({
   restaurant,
@@ -16,7 +16,7 @@ export const RestaurantsCard = ({
 
   return (
     <Link
-      to={`/restaurants/${restaurant.slug}`}
+      to={`/restaurant/${restaurant.slug}`}
       className="card h-100 bg-light border-0 rounded-3 overflow-hidden text-decoration-none"
     >
       <div
