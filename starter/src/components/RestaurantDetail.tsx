@@ -17,7 +17,9 @@ export const RestaurantDetail = () => {
 
   return (
     <div className="m-5">
-      <h1 className="text-center text-uppercase mb-5">{restaurant.businessname}</h1>
+      <h1 className="text-center text-uppercase mb-5">
+        {restaurant.businessname}
+      </h1>
 
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
@@ -33,19 +35,46 @@ export const RestaurantDetail = () => {
         <div className="card-body">
           {restaurant.reviewsList.length > 0 && (
             <>
-              <p className="mt-1">rating - {getAverageRating(restaurant)}</p>
+              <p className="mt-1">Rating - {getAverageRating(restaurant)}</p>
               <p>Based on {restaurant.reviewsList.length} reviews</p>
             </>
           )}
-          <p className="mt-2">{restaurant.phone}</p>
-          <p className="mt-2">{restaurant.email}</p>
-          <p className="mt-2">{restaurant.address}</p>
+          <p className="mt-2">Phone: {restaurant.phone}</p>
+          <p className="mt-2">Email: {restaurant.email}</p>
+          <p className="mt-2">Address: {restaurant.address}</p>
 
           {restaurant.parkinglot && (
             <p className="mt-2">We have a parking lot waiting for you.</p>
           )}
         </div>
       </div>
+
+      {/* Render reviews if they exist */}
+      {restaurant.reviewsList.length > 0 ? (
+        <>
+          <h2 className="text-center text-uppercase my-5">Reviews</h2>
+          <ul className="list-group">
+            {restaurant.reviewsList.map((review) => (
+              <li
+                key={review.id}
+                className="list-group-item list-group-item-light border-0 mb-4 rounded-3"
+              >
+                <p>
+                  <span className="fw-bold">Author:</span> {review.author}
+                </p>
+                <p>
+                  <span className="fw-bold">Message:</span> {review.comment}
+                </p>
+                <p>
+                  <span className="fw-bold">Stars:</span> {review.stars}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
