@@ -55,12 +55,6 @@
           "author": "Joshua",
           "comment": "Excellent",
           "stars": 5
-        },
-        {
-          "id": 1728511541673,
-          "author": "mane",
-          "comment": "2",
-          "stars": 3
         }
       ]
     },
@@ -480,26 +474,7 @@
       "slug": "chidinma-restaurant",
       "email": "chidinma-restaurant@gmail.com",
       "id": "5f5eccf3e923d0aca3e7d436",
-      "reviewsList": [
-        {
-          "id": 1728511246681,
-          "author": "Predrag",
-          "comment": "da",
-          "stars": 2
-        },
-        {
-          "id": 1728511264879,
-          "author": "asd",
-          "comment": "asd",
-          "stars": 3
-        },
-        {
-          "id": 1728511508842,
-          "author": "asd",
-          "comment": "d",
-          "stars": 1
-        }
-      ]
+      "reviewsList": []
     },
     {
       "reviews": 0,
