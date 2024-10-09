@@ -2,7 +2,15 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { RestaurantsProps } from "../types/RestaurantsProps"; // Assuming RestaurantsProps is in a separate file
 
+interface Review {
+  id: number;
+  author: string;
+  comment: string;
+  stars: number;
+}
+
 interface RestaurantStoreState {
+  restaurants: RestaurantsProps[]; // Store list of restaurants
   favorites: string[]; // Store favorite restaurant IDs
   toggleFavorite: (id: string) => void; // Toggle favorite restaurant
   isFavorite: (id: string) => boolean; // Check if restaurant is a favorite
@@ -12,12 +20,18 @@ interface RestaurantStoreState {
     restaurants: RestaurantsProps[],
     type: string
   ) => RestaurantsProps[]; // Filter restaurants by type
+  addReview: (
+    restaurants: RestaurantsProps[],
+    restaurantId: string,
+    newReview: Review
+  ) => Promise<void>; // Add a review to a restaurant
 }
 
 export const useRestaurantStore = create<RestaurantStoreState>()(
   persist(
     (set, get) => ({
-      // Favorites state management
+      // Initialize restaurants and favorites state
+      restaurants: [],
       favorites: [],
 
       // Toggle favorite by adding/removing restaurant ID from favorites array
@@ -63,6 +77,39 @@ export const useRestaurantStore = create<RestaurantStoreState>()(
         return restaurants.filter(
           (restaurant) => restaurant.restauranttype === type
         );
+      },
+
+      // Add a review to a restaurant
+      addReview: async (
+        restaurants: RestaurantsProps[],
+        restaurantId: string,
+        newReview: Review
+      ) => {
+        // Find the restaurant in the array
+        const restaurant = restaurants.find((r) => r.id === restaurantId);
+        if (!restaurant) return;
+
+        // Update the restaurant's reviews list
+        const updatedRestaurant = {
+          ...restaurant,
+          reviewsList: [...restaurant.reviewsList, newReview],
+        };
+
+        // Make a PUT request to update the restaurant on the backend
+        await fetch(`http://localhost:5001/restaurants/${restaurantId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedRestaurant),
+        });
+
+        // Update the local state in Zustand
+        set((state) => ({
+          restaurants: state.restaurants.map((r) =>
+            r.id === restaurantId ? updatedRestaurant : r
+          ),
+        }));
       },
     }),
     {

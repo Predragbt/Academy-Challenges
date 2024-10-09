@@ -1,25 +1,69 @@
+import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { useRestaurants } from "../context/RestaurantsContext";
 import { useRestaurantStore } from "../store/restaurantStore";
+import { ReviewForm } from "./ReviewsForm";
+import { RestaurantsProps } from "../types/RestaurantsProps";
 
 export const RestaurantDetail = () => {
   const { restaurants, loading, error } = useRestaurants();
   const { slug } = useParams();
-  const { getAverageRating } = useRestaurantStore();
+  const { getAverageRating, addReview } = useRestaurantStore();
+  const [restaurant, setRestaurant] = useState<RestaurantsProps | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const restaurant = restaurants?.find(
-    (restaurant) => restaurant.slug === slug
-  );
+  // Find the restaurant by slug and set the local state
+  useEffect(() => {
+    const foundRestaurant = restaurants.find((r) => r.slug === slug);
+    setRestaurant(foundRestaurant || null);
+  }, [restaurants, slug]);
 
   if (!restaurant) {
     return <p>Restaurant not found</p>;
   }
 
+  // Handle form submission for adding a new review
+  const handleReviewSubmit = async (
+    name: string,
+    comment: string,
+    stars: number
+  ) => {
+    setIsSubmitting(true);
+    setErrorMessage("");
+
+    try {
+      // Create a new review object
+      const newReview = {
+        id: +new Date(), // Generate a unique ID for the new review
+        author: name,
+        comment,
+        stars,
+      };
+
+      // Call the addReview function from Zustand store
+      await addReview(restaurants, restaurant.id, newReview);
+
+      // Update the local restaurant state to include the new review
+      setRestaurant((prev) => {
+        if (!prev) return prev;
+        return {
+          ...prev,
+          reviewsList: [...prev.reviewsList, newReview],
+        };
+      });
+    } catch (error) {
+      setErrorMessage("Failed to add the review.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="m-5">
-      <h1 className="text-center text-uppercase mb-5">
+      <h2 className="text-center text-uppercase mb-5">
         {restaurant.businessname}
-      </h1>
+      </h2>
 
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
@@ -49,8 +93,7 @@ export const RestaurantDetail = () => {
         </div>
       </div>
 
-      {/* Render reviews if they exist */}
-      {restaurant.reviewsList.length > 0 ? (
+      {restaurant.reviewsList.length > 0 && (
         <>
           <h2 className="text-center text-uppercase my-5">Reviews</h2>
           <ul className="list-group">
@@ -72,9 +115,13 @@ export const RestaurantDetail = () => {
             ))}
           </ul>
         </>
-      ) : (
-        <></>
       )}
+
+      <h2 className="text-center text-uppercase my-5">Review Form</h2>
+      <ReviewForm onSubmit={handleReviewSubmit} />
+
+      {isSubmitting && <p>Submitting your review...</p>}
+      {errorMessage && <p className="text-danger">{errorMessage}</p>}
     </div>
   );
 };
