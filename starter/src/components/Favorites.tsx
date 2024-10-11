@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useRestaurants } from "../context/RestaurantsContext";
 import { useRestaurantStore } from "../store/restaurantStore";
 import { RestaurantsCard } from "./RestaurantCard";
@@ -17,12 +18,14 @@ export const Favorites = () => {
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
 
-      {favoriteRestaurants &&
-        favoriteRestaurants.map((restaurant) => (
+      {favoriteRestaurants.length > 0 ?  favoriteRestaurants.map((restaurant) => (
           <div key={restaurant.id} className="mb-4">
             <RestaurantsCard restaurant={restaurant} />
           </div>
-        ))}
+        )) : (
+          <div className="text-center">Chose your favorite <Link to="/">restaurants!</Link></div>
+        )
+       }
     </div>
   );
 };

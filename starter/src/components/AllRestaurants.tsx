@@ -7,7 +7,7 @@ export const AllRestaurants = () => {
   return (
     <div className="py-5 container px-0">
       <h2 className="text-center text-uppercase mb-5">All Restaurants</h2>
-      <div className="">
+      <div>
         {loading && <p>Loading...</p>}
         {error && <p>{error}</p>}
         <div className="row g-4">
