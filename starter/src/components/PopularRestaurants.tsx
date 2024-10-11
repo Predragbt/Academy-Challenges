@@ -12,13 +12,13 @@ export const PopularRestaurants = () => {
       <h2 className="text-center text-uppercase mb-5">
         Our Most Popular Restaurants
       </h2>
-      <div className="container-fluid px-0">
+      <div className="container px-0">
         {loading && <p>Loading...</p>}
         {error && <p>{error}</p>}
         <div className="row g-4">
           {popularRestaurants &&
             popularRestaurants.map((restaurant) => (
-              <div key={restaurant.id} className="col-2">
+              <div key={restaurant.id} className="custom-col-5">
                 <RestaurantsCard restaurant={restaurant} />
               </div>
             ))}

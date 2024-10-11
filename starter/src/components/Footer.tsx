@@ -1,8 +1,8 @@
 export const Footer = () => {
   return (
-    <div className="mx-5">
-      <div className="container-fluid p-4 border-top text-center">
-        <p>Copyright © Brainster 2024 </p>
+    <div className="container px-0 py-4 border-top">
+      <div className="text-center">
+        <p>Copyright © Brainster 2024</p>
       </div>
     </div>
   );

@@ -19,3 +19,7 @@ code {
 .card-img-top {
   border-radius: 10px;
 }
+
+.custom-col-5 {
+  width: 20%; /* 100% / 5 = 20% */
+}

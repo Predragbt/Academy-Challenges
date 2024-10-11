@@ -10,7 +10,7 @@ export const Favorites = () => {
     favorites.includes(restaurants.id)
   );
   return (
-    <div className="m-5">
+    <div className="container px-0 py-5">
       <h2 className="text-center text-uppercase mb-5">
         Your favorite restaurants
       </h2>
