@@ -1,10 +1,19 @@
 // components/PopularRestaurants.tsx
+import { useEffect, useState } from "react";
 import { useRestaurantStore } from "../store/restaurantStore";
 import { RestaurantsCard } from "./RestaurantCard";
+import { RestaurantsProps } from "../types/RestaurantsProps";
 
 export const PopularRestaurants = () => {
-  const { top10Restaurants } = useRestaurantStore();
-  const popularRestaurants = top10Restaurants();
+  const { top10Restaurants, restaurants } = useRestaurantStore();
+  const [popularRestaurants, setPopularRestaurants] = useState<
+    RestaurantsProps[]
+  >([]);
+
+  // Recalculate the top 10 restaurants whenever restaurants change
+  useEffect(() => {
+    setPopularRestaurants(top10Restaurants());
+  }, [restaurants]);
 
   return (
     <div className="container px-0 py-5">

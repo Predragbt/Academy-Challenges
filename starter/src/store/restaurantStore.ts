@@ -15,10 +15,10 @@ interface RestaurantStoreState {
   favorites: string[];
   toggleFavorite: (id: string) => void;
   isFavorite: (id: string) => boolean;
-  getAverageRating: (restaurant: RestaurantsProps) => string | number;
+  getAverageRating: (restaurant: RestaurantsProps) => number;
   top10Restaurants: () => RestaurantsProps[];
   filterByType: (type: string) => RestaurantsProps[];
-  addReview: (restaurantId: string, newReview: Review) => Promise<void>;
+  addReview: (restaurantId: string, newReview: Review) => void;
   setRestaurants: (restaurants: RestaurantsProps[]) => void;
 }
 
@@ -50,19 +50,16 @@ export const useRestaurantStore = create<RestaurantStoreState>()(
           (total, review) => total + review.stars,
           0
         );
-        const average = totalStars / restaurant.reviewsList.length;
-        return Number.isInteger(average) ? average : average.toFixed(1);
+        return restaurant.reviewsList.length === 0
+          ? 0
+          : parseFloat((totalStars / restaurant.reviewsList.length).toFixed(1));
       },
 
       top10Restaurants: () => {
         const { restaurants } = get();
         return restaurants
           .slice()
-          .sort(
-            (a, b) =>
-              Number(get().getAverageRating(b)) -
-              Number(get().getAverageRating(a))
-          )
+          .sort((a, b) => get().getAverageRating(b) - get().getAverageRating(a))
           .slice(0, 10);
       },
 
@@ -73,7 +70,7 @@ export const useRestaurantStore = create<RestaurantStoreState>()(
         );
       },
 
-      addReview: async (restaurantId: string, newReview: Review) => {
+      addReview: (restaurantId: string, newReview: Review) => {
         const { restaurants } = get();
         const restaurant = restaurants.find((r) => r.id === restaurantId);
         if (!restaurant) return;
@@ -83,40 +80,12 @@ export const useRestaurantStore = create<RestaurantStoreState>()(
           reviewsList: [...restaurant.reviewsList, newReview],
         };
 
+        // Update the state with the new review
         set((state) => ({
           restaurants: state.restaurants.map((r) =>
             r.id === restaurantId ? updatedRestaurant : r
           ),
         }));
-
-        try {
-          const response = await fetch(
-            `http://localhost:5001/restaurants/${restaurantId}`,
-            {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(updatedRestaurant),
-            }
-          );
-
-          if (!response.ok) {
-            throw new Error(
-              `Failed to update restaurant: ${response.statusText}`
-            );
-          }
-
-          const updatedData = await response.json();
-          set((state) => ({
-            restaurants: state.restaurants.map((r) =>
-              r.id === restaurantId ? updatedData : r
-            ),
-          }));
-        } catch (error) {
-          console.error("Error updating restaurant review:", error);
-          alert("Failed to add review. Please try again.");
-        }
       },
     }),
     {
