@@ -12,8 +12,8 @@ export const Cuisines = () => {
   );
 
   return (
-    <div className="container px-0 py-5 border-top border-bottom">
-      <h2 className="text-center text-uppercase mb-5">Cuisines</h2>
+    <div className="container px-0 py-4 border-top border-bottom">
+      <h2 className="text-center text-uppercase mb-4">Cuisines</h2>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
 

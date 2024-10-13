@@ -85,31 +85,56 @@ export const useRestaurantStore = create<RestaurantStoreState>()(
         restaurantId: string,
         newReview: Review
       ) => {
-        // Find the restaurant in the array
-        const restaurant = restaurants.find((r) => r.id === restaurantId);
-        if (!restaurant) return;
+        try {
+          // Optimistically update the restaurant's reviews list
+          const restaurant = restaurants.find((r) => r.id === restaurantId);
+          if (!restaurant) return;
 
-        // Update the restaurant's reviews list
-        const updatedRestaurant = {
-          ...restaurant,
-          reviewsList: [...restaurant.reviewsList, newReview],
-        };
+          const updatedRestaurant = {
+            ...restaurant,
+            reviewsList: [...restaurant.reviewsList, newReview],
+          };
 
-        // Make a PUT request to update the restaurant on the backend
-        await fetch(`http://localhost:5001/restaurants/${restaurantId}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updatedRestaurant),
-        });
+          // Update local state optimistically
+          set((state) => ({
+            restaurants: state.restaurants.map((r) =>
+              r.id === restaurantId ? updatedRestaurant : r
+            ),
+          }));
 
-        // Update the local state in Zustand
-        set((state) => ({
-          restaurants: state.restaurants.map((r) =>
-            r.id === restaurantId ? updatedRestaurant : r
-          ),
-        }));
+          // Perform the AJAX PUT request to update the restaurant in the backend
+          const response = await fetch(
+            `http://localhost:5001/restaurants/${restaurantId}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(updatedRestaurant),
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error(
+              `Failed to update restaurant: ${response.statusText}`
+            );
+          }
+
+          // Use the backend's updated data in case it modifies anything
+          const updatedData = await response.json();
+
+          // Update Zustand state with the final backend-confirmed data
+          set((state) => ({
+            restaurants: state.restaurants.map((r) =>
+              r.id === restaurantId ? updatedData : r
+            ),
+          }));
+        } catch (error) {
+          console.error("Error updating restaurant review:", error);
+
+          // Handle the error gracefully, e.g., showing an alert or rollback
+          alert("Failed to add review. Please try again.");
+        }
       },
     }),
     {

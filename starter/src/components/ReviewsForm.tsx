@@ -7,16 +7,20 @@ interface ReviewFormProps {
 export const ReviewForm = ({ onSubmit }: ReviewFormProps) => {
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
-  const [stars, setStars] = useState(0);
+  const [stars, setStars] = useState(1);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!name || !comment || stars < 1 || stars > 5) {
+      alert("Please fill in all fields to leave a review!");
+      return;
+    }
     onSubmit(name, comment, stars);
 
     // Clear the form fields after submission
     setName("");
     setComment("");
-    setStars(0);
+    setStars(1);
   };
 
   return (
@@ -48,7 +52,7 @@ export const ReviewForm = ({ onSubmit }: ReviewFormProps) => {
         <input
           type="range"
           className="form-range"
-          min="0"
+          min="1"
           max="5"
           id="customRange2"
           value={stars}

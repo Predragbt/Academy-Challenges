@@ -18,11 +18,11 @@ export const SurpriseRestaurant = () => {
   };
 
   return (
-    <div className="container px-0 py-5 border-bottom">
+    <div className="container px-0 py-4 border-bottom">
       <div>
         <h2 className="text-center text-uppercase">Don't know what to eat?</h2>
         <button
-          className="btn btn-success w-100 mt-5"
+          className="btn btn-success w-100 mt-4 "
           onClick={handleSurpriseMe}
         >
           Surprise me!
