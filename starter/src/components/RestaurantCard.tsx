@@ -36,19 +36,19 @@ export const RestaurantsCard = ({
         style={{ height: "200px", objectFit: "cover" }}
       />
 
-      <div className="card-body">
+      <div className="card-body d-flex flex-column">
         <h5 className="card-title fw-bold">{restaurant.businessname}</h5>
         <p className="card-text text-danger fw-bold">
           {restaurant.restauranttype}
         </p>
 
         {restaurant.reviewsList.length > 0 && (
-          <>
+          <div className="mt-auto">
             <p className="mt-4 fs-5">
               Rating - {getAverageRating(restaurant)},
             </p>
             <p>Based on {restaurant.reviewsList.length} reviews</p>
-          </>
+          </div>
         )}
       </div>
     </Link>
