@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { useRestaurants } from "../context/RestaurantsContext";
 import { useRestaurantStore } from "../store/restaurantStore";
 import { ReviewForm } from "./ReviewsForm";
@@ -38,15 +38,8 @@ export const RestaurantDetail = () => {
         stars,
       };
 
-      await addReview(restaurants, restaurant.id, newReview);
-
-      setRestaurant((prev) => {
-        if (!prev) return prev;
-        return {
-          ...prev,
-          reviewsList: [...prev.reviewsList, newReview],
-        };
-      });
+      // Only rely on Zustand to update the reviews
+      await addReview(restaurant.id, newReview);
     } catch (error) {
       setErrorMessage("Failed to add the review.");
     } finally {

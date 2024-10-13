@@ -1,3 +1,4 @@
+// store/restaurantStore.ts
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { RestaurantsProps } from "../types/RestaurantsProps";
@@ -15,16 +16,10 @@ interface RestaurantStoreState {
   toggleFavorite: (id: string) => void;
   isFavorite: (id: string) => boolean;
   getAverageRating: (restaurant: RestaurantsProps) => string | number;
-  top10Restaurants: (restaurants: RestaurantsProps[]) => RestaurantsProps[];
-  filterByType: (
-    restaurants: RestaurantsProps[],
-    type: string
-  ) => RestaurantsProps[];
-  addReview: (
-    restaurants: RestaurantsProps[],
-    restaurantId: string,
-    newReview: Review
-  ) => Promise<void>;
+  top10Restaurants: () => RestaurantsProps[];
+  filterByType: (type: string) => RestaurantsProps[];
+  addReview: (restaurantId: string, newReview: Review) => Promise<void>;
+  setRestaurants: (restaurants: RestaurantsProps[]) => void;
 }
 
 export const useRestaurantStore = create<RestaurantStoreState>()(
@@ -33,13 +28,16 @@ export const useRestaurantStore = create<RestaurantStoreState>()(
       restaurants: [],
       favorites: [],
 
+      setRestaurants: (restaurants: RestaurantsProps[]) => {
+        set({ restaurants });
+      },
+
       toggleFavorite: (id: string) => {
         const { favorites } = get();
-        if (favorites.includes(id)) {
-          set({ favorites: favorites.filter((favId) => favId !== id) });
-        } else {
-          set({ favorites: [...favorites, id] });
-        }
+        const updatedFavorites = favorites.includes(id)
+          ? favorites.filter((favId) => favId !== id)
+          : [...favorites, id];
+        set({ favorites: updatedFavorites });
       },
 
       isFavorite: (id: string) => {
@@ -56,7 +54,8 @@ export const useRestaurantStore = create<RestaurantStoreState>()(
         return Number.isInteger(average) ? average : average.toFixed(1);
       },
 
-      top10Restaurants: (restaurants: RestaurantsProps[]) => {
+      top10Restaurants: () => {
+        const { restaurants } = get();
         return restaurants
           .slice()
           .sort(
@@ -67,34 +66,30 @@ export const useRestaurantStore = create<RestaurantStoreState>()(
           .slice(0, 10);
       },
 
-      filterByType: (restaurants: RestaurantsProps[], type: string) => {
+      filterByType: (type: string) => {
+        const { restaurants } = get();
         return restaurants.filter(
           (restaurant) => restaurant.restauranttype === type
         );
       },
 
-      addReview: async (
-        restaurants: RestaurantsProps[],
-        restaurantId: string,
-        newReview: Review
-      ) => {
+      addReview: async (restaurantId: string, newReview: Review) => {
+        const { restaurants } = get();
+        const restaurant = restaurants.find((r) => r.id === restaurantId);
+        if (!restaurant) return;
+
+        const updatedRestaurant = {
+          ...restaurant,
+          reviewsList: [...restaurant.reviewsList, newReview],
+        };
+
+        set((state) => ({
+          restaurants: state.restaurants.map((r) =>
+            r.id === restaurantId ? updatedRestaurant : r
+          ),
+        }));
+
         try {
-          // Find the restaurant to update
-          const restaurant = restaurants.find((r) => r.id === restaurantId);
-          if (!restaurant) return;
-
-          const updatedRestaurant = {
-            ...restaurant,
-            reviewsList: [...restaurant.reviewsList, newReview],
-          };
-
-          // Update local state optimistically
-          set((state) => ({
-            restaurants: state.restaurants.map((r) =>
-              r.id === restaurantId ? updatedRestaurant : r
-            ),
-          }));
-
           const response = await fetch(
             `http://localhost:5001/restaurants/${restaurantId}`,
             {
@@ -112,9 +107,7 @@ export const useRestaurantStore = create<RestaurantStoreState>()(
             );
           }
 
-          // Update the state with the lastest data from the server response
           const updatedData = await response.json();
-
           set((state) => ({
             restaurants: state.restaurants.map((r) =>
               r.id === restaurantId ? updatedData : r
@@ -122,7 +115,6 @@ export const useRestaurantStore = create<RestaurantStoreState>()(
           }));
         } catch (error) {
           console.error("Error updating restaurant review:", error);
-
           alert("Failed to add review. Please try again.");
         }
       },

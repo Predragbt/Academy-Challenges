@@ -1,14 +1,15 @@
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom"; // Fixed import
 import { useRestaurants } from "../context/RestaurantsContext";
 import { useRestaurantStore } from "../store/restaurantStore";
 import { RestaurantsCard } from "./RestaurantCard";
 
 export const CuisineDetail = () => {
   const { type } = useParams();
-  const { restaurants, loading, error } = useRestaurants();
+  const { loading, error } = useRestaurants();
   const { filterByType } = useRestaurantStore();
 
-  const filteredRestaurants = filterByType(restaurants || [], type || "");
+  const filteredRestaurants = filterByType(type || "");
+
   return (
     <div className="container px-0 py-5">
       <h2 className="text-center text-uppercase mb-5">{type} Restaurants</h2>
