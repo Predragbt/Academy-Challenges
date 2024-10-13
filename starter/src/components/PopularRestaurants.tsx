@@ -10,7 +10,6 @@ export const PopularRestaurants = () => {
     RestaurantsProps[]
   >([]);
 
-  // Recalculate the top 10 restaurants whenever restaurants change
   useEffect(() => {
     setPopularRestaurants(top10Restaurants());
   }, [restaurants]);
