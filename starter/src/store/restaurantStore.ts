@@ -79,7 +79,7 @@ export const useRestaurantStore = create<RestaurantStoreState>()(
         newReview: Review
       ) => {
         try {
-          // Optimistically update the restaurant's reviews list
+          // Find the restaurant to update
           const restaurant = restaurants.find((r) => r.id === restaurantId);
           if (!restaurant) return;
 
@@ -112,6 +112,7 @@ export const useRestaurantStore = create<RestaurantStoreState>()(
             );
           }
 
+          // Update the state with the lastest data from the server response
           const updatedData = await response.json();
 
           set((state) => ({
