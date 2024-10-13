@@ -17,7 +17,6 @@ export const ReviewForm = ({ onSubmit }: ReviewFormProps) => {
     }
     onSubmit(name, comment, stars);
 
-    // Clear the form fields after submission
     setName("");
     setComment("");
     setStars(1);

@@ -3,17 +3,14 @@ import { useRestaurants } from "../context/RestaurantsContext";
 
 export const SurpriseRestaurant = () => {
   const navigate = useNavigate();
-  const { restaurants } = useRestaurants(); // Get restaurants from the store
+  const { restaurants } = useRestaurants();
 
-  // Function to handle the surprise button click
   const handleSurpriseMe = () => {
     if (restaurants.length === 0) return;
 
-    // Pick a random restaurant
     const randomRestaurant =
       restaurants[Math.floor(Math.random() * restaurants.length)];
 
-    // Navigate to the selected random restaurant's detail page
     navigate(`/restaurant/${randomRestaurant.slug}`);
   };
 

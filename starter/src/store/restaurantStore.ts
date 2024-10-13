@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { RestaurantsProps } from "../types/RestaurantsProps"; // Assuming RestaurantsProps is in a separate file
+import { RestaurantsProps } from "../types/RestaurantsProps";
 
 interface Review {
   id: number;
@@ -10,31 +10,29 @@ interface Review {
 }
 
 interface RestaurantStoreState {
-  restaurants: RestaurantsProps[]; // Store list of restaurants
-  favorites: string[]; // Store favorite restaurant IDs
-  toggleFavorite: (id: string) => void; // Toggle favorite restaurant
-  isFavorite: (id: string) => boolean; // Check if restaurant is a favorite
-  getAverageRating: (restaurant: RestaurantsProps) => string | number; // Calculate average rating
-  top10Restaurants: (restaurants: RestaurantsProps[]) => RestaurantsProps[]; // Get top 10 restaurants
+  restaurants: RestaurantsProps[];
+  favorites: string[];
+  toggleFavorite: (id: string) => void;
+  isFavorite: (id: string) => boolean;
+  getAverageRating: (restaurant: RestaurantsProps) => string | number;
+  top10Restaurants: (restaurants: RestaurantsProps[]) => RestaurantsProps[];
   filterByType: (
     restaurants: RestaurantsProps[],
     type: string
-  ) => RestaurantsProps[]; // Filter restaurants by type
+  ) => RestaurantsProps[];
   addReview: (
     restaurants: RestaurantsProps[],
     restaurantId: string,
     newReview: Review
-  ) => Promise<void>; // Add a review to a restaurant
+  ) => Promise<void>;
 }
 
 export const useRestaurantStore = create<RestaurantStoreState>()(
   persist(
     (set, get) => ({
-      // Initialize restaurants and favorites state
       restaurants: [],
       favorites: [],
 
-      // Toggle favorite by adding/removing restaurant ID from favorites array
       toggleFavorite: (id: string) => {
         const { favorites } = get();
         if (favorites.includes(id)) {
@@ -44,13 +42,11 @@ export const useRestaurantStore = create<RestaurantStoreState>()(
         }
       },
 
-      // Check if a restaurant is a favorite
       isFavorite: (id: string) => {
         const { favorites } = get();
         return favorites.includes(id);
       },
 
-      // Calculate average rating for a restaurant
       getAverageRating: (restaurant: RestaurantsProps) => {
         const totalStars = restaurant.reviewsList.reduce(
           (total, review) => total + review.stars,
@@ -60,26 +56,23 @@ export const useRestaurantStore = create<RestaurantStoreState>()(
         return Number.isInteger(average) ? average : average.toFixed(1);
       },
 
-      // Get top 10 restaurants based on average rating
       top10Restaurants: (restaurants: RestaurantsProps[]) => {
         return restaurants
-          .slice() // Make a shallow copy of the array
+          .slice()
           .sort(
             (a, b) =>
               Number(get().getAverageRating(b)) -
               Number(get().getAverageRating(a))
           )
-          .slice(0, 10); // Get the top 10 restaurants
+          .slice(0, 10);
       },
 
-      // Filter restaurants by type
       filterByType: (restaurants: RestaurantsProps[], type: string) => {
         return restaurants.filter(
           (restaurant) => restaurant.restauranttype === type
         );
       },
 
-      // Add a review to a restaurant
       addReview: async (
         restaurants: RestaurantsProps[],
         restaurantId: string,
@@ -102,7 +95,6 @@ export const useRestaurantStore = create<RestaurantStoreState>()(
             ),
           }));
 
-          // Perform the AJAX PUT request to update the restaurant in the backend
           const response = await fetch(
             `http://localhost:5001/restaurants/${restaurantId}`,
             {
@@ -120,10 +112,8 @@ export const useRestaurantStore = create<RestaurantStoreState>()(
             );
           }
 
-          // Use the backend's updated data in case it modifies anything
           const updatedData = await response.json();
 
-          // Update Zustand state with the final backend-confirmed data
           set((state) => ({
             restaurants: state.restaurants.map((r) =>
               r.id === restaurantId ? updatedData : r
@@ -132,14 +122,13 @@ export const useRestaurantStore = create<RestaurantStoreState>()(
         } catch (error) {
           console.error("Error updating restaurant review:", error);
 
-          // Handle the error gracefully, e.g., showing an alert or rollback
           alert("Failed to add review. Please try again.");
         }
       },
     }),
     {
-      name: "restaurant-favorites", // Key name in localStorage
-      storage: createJSONStorage(() => localStorage), // Use localStorage for persistence
+      name: "restaurant-favorites",
+      storage: createJSONStorage(() => localStorage),
     }
   )
 );

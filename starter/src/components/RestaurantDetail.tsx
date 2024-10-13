@@ -13,7 +13,6 @@ export const RestaurantDetail = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Find the restaurant by slug and set the local state
   useEffect(() => {
     const foundRestaurant = restaurants.find((r) => r.slug === slug);
     setRestaurant(foundRestaurant || null);
@@ -23,7 +22,6 @@ export const RestaurantDetail = () => {
     return <p>Restaurant not found</p>;
   }
 
-  // Handle form submission for adding a new review
   const handleReviewSubmit = async (
     name: string,
     comment: string,
@@ -33,18 +31,15 @@ export const RestaurantDetail = () => {
     setErrorMessage("");
 
     try {
-      // Create a new review object
       const newReview = {
-        id: +new Date(), // Generate a unique ID for the new review
+        id: +new Date(),
         author: name,
         comment,
         stars,
       };
 
-      // Call the addReview function from Zustand store
       await addReview(restaurants, restaurant.id, newReview);
 
-      // Update the local restaurant state to include the new review
       setRestaurant((prev) => {
         if (!prev) return prev;
         return {

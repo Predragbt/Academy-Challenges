@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { useRestaurantStore } from "../store/restaurantStore"; // Import Zustand store
+import { useRestaurantStore } from "../store/restaurantStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faSolidHeart } from "@fortawesome/free-solid-svg-icons";
-import { faHeart as faRegularHeart } from "@fortawesome/free-regular-svg-icons"; // Regular heart for not favorited
+import { faHeart as faRegularHeart } from "@fortawesome/free-regular-svg-icons";
 import { RestaurantsProps } from "../types/RestaurantsProps";
 
 export const RestaurantsCard = ({
@@ -10,9 +10,9 @@ export const RestaurantsCard = ({
 }: {
   restaurant: RestaurantsProps;
 }) => {
-  const { getAverageRating, isFavorite, toggleFavorite } = useRestaurantStore(); // Get Zustand store functions
+  const { getAverageRating, isFavorite, toggleFavorite } = useRestaurantStore();
 
-  const isFav = isFavorite(restaurant.id); // Check if this restaurant is a favorite
+  const isFav = isFavorite(restaurant.id);
 
   return (
     <Link
@@ -22,12 +22,11 @@ export const RestaurantsCard = ({
       <div
         className="position-absolute top-0 start-0 fs-2 text-danger ms-2"
         onClick={(e) => {
-          e.preventDefault(); // Prevent the Link from firing when clicking the heart
-          toggleFavorite(restaurant.id); // Toggle favorite status
+          e.preventDefault();
+          toggleFavorite(restaurant.id);
         }}
       >
         <FontAwesomeIcon icon={isFav ? faSolidHeart : faRegularHeart} />{" "}
-        {/* Show filled heart if favorited, regular heart if not */}
       </div>
 
       <img

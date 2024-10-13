@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 export const Cuisines = () => {
   const { restaurants, loading, error } = useRestaurants();
 
-  // Create a set of unique restaurant types (cuisines)
   const uniqueTypes = Array.from(
     new Set(restaurants?.map((restaurant) => restaurant.restauranttype))
   );
@@ -17,7 +16,6 @@ export const Cuisines = () => {
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
 
-      {/* Render one button for each unique cuisine type */}
       <div className="text-center">
         {uniqueTypes.map((type, index) => (
           <Link

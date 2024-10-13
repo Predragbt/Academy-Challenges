@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext } from "react";
 import { useFetch } from "../hooks/useFetch";
 import { RestaurantsProps } from "../types/RestaurantsProps";
 
@@ -8,9 +8,8 @@ interface RestaurantsContextType {
   error: string | null;
 }
 
-// Always default restaurants to an empty array
 export const RestaurantsContext = createContext<RestaurantsContextType>({
-  restaurants: [], // Ensure restaurants is an empty array by default
+  restaurants: [],
   loading: false,
   error: null,
 });
@@ -29,7 +28,7 @@ export const RestaurantsProvider = ({
   return (
     <RestaurantsContext.Provider
       value={{
-        restaurants: restaurants || [], // Fallback to an empty array if data is null
+        restaurants: restaurants || [],
         error,
         loading,
       }}
