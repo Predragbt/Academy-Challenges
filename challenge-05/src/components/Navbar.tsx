@@ -1,8 +1,16 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import { useAuth } from "../context/AuthContext";
 
 export const Navbar = () => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/");
+  };
   return (
     <>
       <div
@@ -27,12 +35,12 @@ export const Navbar = () => {
         >
           <AddIcon style={{ scale: "1.5" }} />
         </Link>
-        <Link
-          to={"/"}
+        <span
+          onClick={handleLogout}
           style={{ cursor: "pointer", textDecoration: "none", color: "white" }}
         >
           Logout
-        </Link>
+        </span>
       </div>
 
       <Outlet />
