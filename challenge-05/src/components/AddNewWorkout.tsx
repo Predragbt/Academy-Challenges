@@ -5,14 +5,21 @@ import {
   Select,
   SelectChangeEvent,
   TextField,
+  FormControl,
+  InputLabel,
 } from "@mui/material";
 import { useState } from "react";
 import { workoutTypes } from "../db/wokroutTypes.json";
+import { useAuth } from "../context/AuthContext";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../firebase/intex";
 
 export const AddNewWorkout = () => {
   const [selectedExerciseType, setSelectedExerciseType] = useState("");
-  const [intensity, setIntensity] = useState("low");
-  const [duration, setDuration] = useState("");
+  const [intensity, setIntensity] = useState("Low"); // Initial value set to 'Low'
+  const [duration, setDuration] = useState(0);
+
+  const { user } = useAuth();
 
   const handleExerciseChange = (event: SelectChangeEvent<string>) => {
     setSelectedExerciseType(event.target.value as string);
@@ -23,15 +30,36 @@ export const AddNewWorkout = () => {
   };
 
   const handleDurationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDuration(event.target.value);
+    setDuration(parseInt(event.target.value, 10));
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    setSelectedExerciseType("");
-    setDuration("");
-    setIntensity("low");
+    if (!user) {
+      alert("You must be logged in to add a new workout");
+      return;
+    }
+
+    try {
+      const workoutRef = collection(db, `users/${user.uid}/workouts`);
+      const date = new Date().toISOString();
+
+      await addDoc(workoutRef, {
+        userId: user.uid,
+        exerciseType: selectedExerciseType,
+        duration: duration,
+        intensity,
+        date,
+      });
+
+      // Reset form
+      setSelectedExerciseType("");
+      setDuration(0);
+      setIntensity("Low"); // Reset intensity to 'Low'
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
   };
 
   return (
@@ -47,27 +75,25 @@ export const AddNewWorkout = () => {
         onSubmit={handleSubmit}
         style={{ width: "100%", maxWidth: "500px" }}
       >
-        <Select
-          value={selectedExerciseType}
-          onChange={handleExerciseChange}
-          displayEmpty
-          fullWidth
-          sx={{ mb: 2 }}
-        >
-          <MenuItem value="" disabled>
-            Exercise Type
-          </MenuItem>
-
-          {workoutTypes.map((workoutType) => (
-            <MenuItem key={workoutType.id} value={workoutType.name}>
-              {workoutType.name}
-            </MenuItem>
-          ))}
-        </Select>
+        {/* Exercise Type Select */}
+        <FormControl fullWidth sx={{ mb: 2 }}>
+          <InputLabel>Exercise Type*</InputLabel>
+          <Select
+            value={selectedExerciseType}
+            onChange={handleExerciseChange}
+            displayEmpty
+          >
+            {workoutTypes.map((workoutType) => (
+              <MenuItem key={workoutType.id} value={workoutType.name}>
+                {workoutType.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
 
         <TextField
           type="number"
-          label="Duration (minutes)"
+          label="Duration"
           variant="outlined"
           fullWidth
           value={duration}
@@ -75,12 +101,19 @@ export const AddNewWorkout = () => {
           sx={{ mb: 2 }}
         />
 
-        {/* Intensity Select with initial value 'low' */}
-        <Select value={intensity} onChange={handleIntensityChange} fullWidth>
-          <MenuItem value="low">Low</MenuItem>
-          <MenuItem value="medium">Medium</MenuItem>
-          <MenuItem value="high">High</MenuItem>
-        </Select>
+        {/* Intensity Select */}
+        <FormControl fullWidth>
+          <InputLabel>Intensity</InputLabel>
+          <Select
+            value={intensity} // Default value 'Low'
+            onChange={handleIntensityChange}
+            label="Intensity" // Label for the Select
+          >
+            <MenuItem value="Low">Low</MenuItem>
+            <MenuItem value="Medium">Medium</MenuItem>
+            <MenuItem value="High">High</MenuItem>
+          </Select>
+        </FormControl>
 
         <Button
           type="submit"
