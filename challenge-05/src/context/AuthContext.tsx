@@ -4,7 +4,7 @@ import {
   signInWithPopup,
   getAuth,
   setPersistence,
-  browserLocalPersistence, // Use local storage for session persistence
+  browserLocalPersistence,
   onAuthStateChanged,
   User,
 } from "firebase/auth";
@@ -13,6 +13,7 @@ import { db } from "../firebase/intex";
 
 interface AuthContextType {
   user: User | null;
+  authLoading: boolean;
   loginWithGoogle: () => Promise<void>;
   logout: () => Promise<void>;
 }
@@ -27,24 +28,22 @@ export const useAuth = (): AuthContextType => {
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [authLoading, setAuthLoading] = useState(true);
   const auth = getAuth();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user); // Set the user if authenticated
-      } else {
-        setUser(null); // Clear the user if not authenticated
-      }
+      setUser(user || null);
+      setAuthLoading(false);
     });
 
-    return unsubscribe; // Clean up the listener on unmount
+    return unsubscribe;
   }, [auth]);
 
   const loginWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      await setPersistence(auth, browserLocalPersistence); // Set persistence to local storage
+      await setPersistence(auth, browserLocalPersistence);
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
@@ -86,6 +85,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const value = {
     user,
+    authLoading,
     loginWithGoogle,
     logout,
   };

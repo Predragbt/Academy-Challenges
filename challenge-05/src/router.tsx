@@ -4,6 +4,7 @@ import { Welcome } from "./components/Welcome";
 import { Navbar } from "./components/Navbar";
 import { AllWorkouts } from "./components/AllWorkouts";
 import { AddNewWorkout } from "./components/AddNewWorkout";
+import { ErrorPage } from "./components/ErrorPage";
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
             element: <AddNewWorkout />,
           },
         ],
+      },
+      {
+        path: "*",
+        element: <ErrorPage />,
       },
     ],
   },

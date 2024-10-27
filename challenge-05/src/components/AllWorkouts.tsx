@@ -13,7 +13,7 @@ export interface Workout {
 }
 
 export const AllWorkouts = () => {
-  const { user } = useAuth();
+  const { user, authLoading } = useAuth();
   const [workouts, setWorkouts] = useState<Workout[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -35,12 +35,22 @@ export const AllWorkouts = () => {
       } catch (error) {
         console.error("Error fetching workouts: ", error);
       } finally {
-        setLoading(false); // End loading
+        setLoading(false);
       }
     };
 
-    fetchWorkouts();
-  }, [user]);
+    if (!authLoading) {
+      fetchWorkouts();
+    }
+  }, [user, authLoading]);
+
+  if (authLoading) {
+    return <div>Loading workouts...</div>;
+  }
+
+  if (!user) {
+    return <div>Please log in to view your workouts.</div>;
+  }
 
   if (loading) {
     return <div>Loading workouts...</div>;

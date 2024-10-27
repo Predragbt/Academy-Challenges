@@ -13,11 +13,14 @@ import { workoutTypes } from "../db/wokroutTypes.json";
 import { useAuth } from "../context/AuthContext";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase/intex";
+import { useNavigate } from "react-router-dom";
 
 export const AddNewWorkout = () => {
   const [selectedExerciseType, setSelectedExerciseType] = useState("");
   const [intensity, setIntensity] = useState("Low"); // Initial value set to 'Low'
   const [duration, setDuration] = useState(0);
+
+  const navigate = useNavigate();
 
   const { user } = useAuth();
 
@@ -57,7 +60,8 @@ export const AddNewWorkout = () => {
       // Reset form
       setSelectedExerciseType("");
       setDuration(0);
-      setIntensity("Low"); // Reset intensity to 'Low'
+      setIntensity("Low");
+      navigate("/all-workouts");
     } catch (error) {
       console.error("Error adding document: ", error);
     }
