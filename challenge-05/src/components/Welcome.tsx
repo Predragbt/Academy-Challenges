@@ -1,8 +1,7 @@
-import { Button, Container, Grid, Grid2, Typography } from "@mui/material";
+import { Button, Container, Grid, Typography } from "@mui/material";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-// Use Grid2 from the next version
 
 export const Welcome = () => {
   const { user, loginWithGoogle } = useAuth();
@@ -23,9 +22,9 @@ export const Welcome = () => {
         alignItems: "center",
       }}
     >
-      <Grid2 container spacing={2} columns={16}>
+      <Grid container spacing={2} columns={16}>
         <Grid item xs={8}>
-          <Typography>
+          <Typography component="div">
             <img src="images/heroBanner.jpeg" alt="Hero Banner" />
           </Typography>
         </Grid>
@@ -36,14 +35,16 @@ export const Welcome = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <Typography>
+          <Typography component="div">
+            {" "}
+            {/* Set component="div" here */}
             <h2>Your Fitness Journey Starts Here</h2>
             <Button variant="outlined" fullWidth onClick={loginWithGoogle}>
               Login
             </Button>
           </Typography>
         </Grid>
-      </Grid2>
+      </Grid>
     </Container>
   );
 };

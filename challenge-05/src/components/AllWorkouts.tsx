@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase/intex"; // Firestore instance
-import { useAuth } from "../context/AuthContext"; // Auth context for getting the logged-in user
+import { db } from "../firebase/intex";
+import { useAuth } from "../context/AuthContext";
+import { WorkoutItem } from "./WorkoutItem";
 
-interface Workout {
+export interface Workout {
   id: string;
   exerciseType: string;
   duration: number;
@@ -12,28 +13,29 @@ interface Workout {
 }
 
 export const AllWorkouts = () => {
-  const { user } = useAuth(); // Get the current logged-in user
-  const [workouts, setWorkouts] = useState<Workout[]>([]); // State to store workouts
-  const [loading, setLoading] = useState(true); // Loading state
+  const { user } = useAuth();
+  const [workouts, setWorkouts] = useState<Workout[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchWorkouts = async () => {
-      if (!user) return; // Ensure the user is logged in
+      if (!user) return;
 
+      setLoading(true); // Start loading
       try {
-        const workoutsRef = collection(db, `users/${user.uid}/workouts`); // Reference to user's workouts
-        const workoutSnapshot = await getDocs(workoutsRef); // Fetch workouts
+        const workoutsRef = collection(db, `users/${user.uid}/workouts`);
+        const workoutSnapshot = await getDocs(workoutsRef);
 
         const fetchedWorkouts = workoutSnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         })) as Workout[];
 
-        setWorkouts(fetchedWorkouts); // Set the fetched workouts in state
+        setWorkouts(fetchedWorkouts);
       } catch (error) {
         console.error("Error fetching workouts: ", error);
       } finally {
-        setLoading(false); // Set loading to false after data is fetched
+        setLoading(false); // End loading
       }
     };
 
@@ -51,11 +53,7 @@ export const AllWorkouts = () => {
       ) : (
         <div style={{ border: "1px solid #ccc", padding: "10px" }}>
           {workouts.map((workout) => (
-            <div key={workout.id} style={{ marginBottom: "20px" }}>
-              <p style={{ margin: "0" }}>{workout.exerciseType}</p>
-              <p style={{ margin: "0" }}>Duration: {workout.duration}</p>
-              <p style={{ margin: "0" }}>Intensity: {workout.intensity}</p>
-            </div>
+            <WorkoutItem key={workout.id} workout={workout} />
           ))}
         </div>
       )}

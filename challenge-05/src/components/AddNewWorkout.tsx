@@ -43,9 +43,10 @@ export const AddNewWorkout = () => {
 
     try {
       const workoutRef = collection(db, `users/${user.uid}/workouts`);
-      const date = new Date().toISOString();
+      const date = new Date().toISOString().split(".")[0] + "Z";
 
       await addDoc(workoutRef, {
+        id: new Date().getTime().toString(),
         userId: user.uid,
         exerciseType: selectedExerciseType,
         duration: duration,
