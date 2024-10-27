@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 
 export const AddNewWorkout = () => {
   const [selectedExerciseType, setSelectedExerciseType] = useState("");
-  const [intensity, setIntensity] = useState("Low"); // Initial value set to 'Low'
+  const [intensity, setIntensity] = useState("Low");
   const [duration, setDuration] = useState(0);
 
   const navigate = useNavigate();
@@ -110,9 +110,9 @@ export const AddNewWorkout = () => {
         <FormControl fullWidth>
           <InputLabel>Intensity</InputLabel>
           <Select
-            value={intensity} // Default value 'Low'
+            value={intensity}
             onChange={handleIntensityChange}
-            label="Intensity" // Label for the Select
+            label="Intensity"
           >
             <MenuItem value="Low">Low</MenuItem>
             <MenuItem value="Medium">Medium</MenuItem>

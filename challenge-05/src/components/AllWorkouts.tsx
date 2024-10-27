@@ -21,7 +21,7 @@ export const AllWorkouts = () => {
     const fetchWorkouts = async () => {
       if (!user) return;
 
-      setLoading(true); // Start loading
+      setLoading(true);
       try {
         const workoutsRef = collection(db, `users/${user.uid}/workouts`);
         const workoutSnapshot = await getDocs(workoutsRef);

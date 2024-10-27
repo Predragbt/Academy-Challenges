@@ -36,8 +36,6 @@ export const Welcome = () => {
           alignItems="center"
         >
           <Typography component="div">
-            {" "}
-            {/* Set component="div" here */}
             <h2>Your Fitness Journey Starts Here</h2>
             <Button variant="outlined" fullWidth onClick={loginWithGoogle}>
               Login
