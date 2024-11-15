@@ -7,7 +7,7 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDDojct4SRH40Hz2iWZhvYTD7M3Qu1YNm8",
+  apiKey: "loremipsum",
   authDomain: "fitness-tracker-challeng-f375c.firebaseapp.com",
   projectId: "fitness-tracker-challeng-f375c",
   storageBucket: "fitness-tracker-challeng-f375c.appspot.com",
